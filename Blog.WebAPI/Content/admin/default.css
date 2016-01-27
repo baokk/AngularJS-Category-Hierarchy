@@ -1,0 +1,227 @@
+﻿
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    color: #656565;
+    padding-top: 50px;
+    background-color: #f5f7fa;
+}
+
+/*.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}*/
+
+/* Navbar Styles */
+
+.navbar-fixed-top {
+    border: 0;
+}
+
+.nav > li > a:focus {
+    background-color: #3a3f51;
+}
+
+.navbar-inverse {
+    background-color: #1797be;
+    box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+    .navbar-inverse .navbar-brand {
+        color: #fff;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #fff;
+    }
+
+/* Sidebar Styles */
+
+.sidebar {
+    display: none;
+    background-color: #1797be;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 50px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        background-color: #3a3f51;
+        border-right: 1px solid #eee;
+    }
+}
+
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+
+    .nav-sidebar > li > a {
+        padding-right: 20px;
+        padding-left: 20px;
+        color: #e1e2e3;
+    }
+
+        .nav-sidebar > li > a > i {
+            width: 2em;
+            display: inline-block;
+        }
+
+        .nav-sidebar > li > a:hover {
+            color: #1797be;
+        }
+
+    .nav-sidebar > .active > a,
+    .nav-sidebar > .active > a:hover,
+    .nav-sidebar > .active > a:focus {
+        color: #fff;
+        /*background-color: #428bca;*/
+    }
+
+
+/* Main Styles */
+
+.main {
+    padding: 20px;
+    float: right;
+}
+
+@media (min-width: 768px) {
+    .main {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+
+.main .page-header {
+    margin-top: 0;
+}
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+    .placeholders h4 {
+        margin-bottom: 0;
+    }
+
+.placeholder {
+    margin-bottom: 20px;
+}
+
+    .placeholder img {
+        display: inline-block;
+        border-radius: 50%;
+    }
+
+/* Form Styles */
+
+.search-form {
+    margin-bottom: 10px;
+}
+
+    .search-form .input-group input {
+        float: right;
+        width: 250px;
+    }
+
+.panel {
+    border-radius: 0;
+}
+
+.panel-grey {
+    border-top-width: 3px;
+    border-color: #cfdbe2;
+}
+
+    .panel-grey .panel-heading {
+        border-radius: 0;
+    }
+
+        .panel-grey .panel-heading .panel-title {
+            color: #444;
+            font-size: 14px;
+        }
+
+.form-control {
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.btn.btn-default {
+    border-color: #eaeaea;
+}
+
+    .btn.btn-default:hover {
+        color: #333;
+        background-color: #f5f5f5;
+    }
+
+.btn {
+    border-radius: 3px;
+    font-size: 12px;
+    border-color: transparent;
+    -webkit-appearance: none;
+    outline: 0 !important;
+    -webkit-transition: all .1s;
+    -o-transition: all .1s;
+    transition: all .1s;
+}
+
+/* 
+    Table Styles 
+*/
+
+.table a {
+    color: #656565;
+}
+
+    .table a:focus {
+        text-decoration: none;
+    }
+
+.sortorder:after {
+    content: '\25b2';
+}
+
+.sortorder.reverse:after {
+    content: '\25bc';
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        background: red;
+        cursor: inherit;
+        display: block;
+    }
+
+input[readonly] {
+    background-color: white !important;
+    cursor: text !important;
+}

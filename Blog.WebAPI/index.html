@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html ng-app="BlogApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Dashboard</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <link href="Content/admin/default.css" rel="stylesheet" />
+    <!-- Icons -->
+    <link href="Content/admin/icons/css/simple-line-icons.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Project name</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Notifiation</a></li>
+                    <li><a href="#">Logout</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="#">Dashboard <span class="sr-only">(current)</span></a></li>
+                    <li><a ui-sref="user"><i class="icon-user"></i> Users</a></li>
+                </ul>
+            </div>
+            <div class="col-md-10 main">
+                <div ui-view></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- /#wrapper -->
+    <!--Angularjs Script-->
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-ui-router.min.js"></script>
+    <script src="Scripts/ui-bootstrap-tpls-1.0.3.min.js"></script>
+    <script src="Scripts/jquery-2.0.0.min.js"></script>
+    <!--App Script-->
+    <script src="app/app.js"></script>
+    <script src="app/services/userService.js"></script>
+    <script src="app/user/userController.js"></script>
+</body>
+</html>
