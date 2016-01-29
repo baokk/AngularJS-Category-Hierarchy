@@ -1,4 +1,4 @@
-﻿var app = angular.module("BlogApp", ["ui.router", "ui.bootstrap"]);
+﻿var app = angular.module("BlogApp", ["ngAnimate", "ui.router", "ui.bootstrap"]);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
 
@@ -17,6 +17,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: "/category",
             templateUrl: "app/category/category.html",
         });
+});
+
+app.filter("startFrom", function () {
+    return function (input, start) {
+        if (input) {
+            start = +start;
+            return input.slice(start);
+        }
+        return [];
+    };
 });
 
 

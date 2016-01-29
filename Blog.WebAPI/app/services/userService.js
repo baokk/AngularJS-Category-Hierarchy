@@ -36,20 +36,6 @@
         // INSERT new user
         factory.createUser = function (user) {
             return $http.post(baseUrl, user);
-            //$http.post({
-            //    method: "post",
-            //    url: baseUrl,
-            //    data: user,
-            //    headers: {
-            //        'Content-Type': undefined
-            //    }
-            //});
-            //return request
-            //    .success(function (d) {
-            //        alert(d);
-            //    })
-            //    .error(function () {
-            //    });
         }
 
         return factory;

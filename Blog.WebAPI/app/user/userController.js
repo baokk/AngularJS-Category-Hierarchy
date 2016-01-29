@@ -1,15 +1,11 @@
 ﻿(function () {
     "use strict";
 
-    app.controller("userController", function ($scope, userService, filterFilter) {
-
-        $scope.users = [];
-        $scope.EditMode = false;
+    app.controller("userController", function ($scope, $uibModal, userService, filterFilter) {
 
         getAllUsers();
-
-        $scope.currentPage = 1;
-        $scope.entryLimit = 10;
+        // reset isUpdate after submt
+        var isUpdate = false;
 
         // get all users
         function getAllUsers() {
@@ -22,6 +18,11 @@
                     console.log(error.message);
                 });
         };
+
+        // paging users
+        $scope.users = [];
+        $scope.currentPage = 1;
+        $scope.entryLimit = 2;
 
         // $watch search to update pagination
         $scope.$watch("search", function (newVal) {
@@ -37,40 +38,46 @@
             $scope.predicate = predicate;
         };
 
+        // show modal
+        $scope.animationsEnabled = true;
+        $scope.open = function (size) {
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'userModal.html',
+                size: size,
+                controller: function ($scope, $uibModalInstance) {
+                    $scope.save = function () {
+                        var file = $scope.myFile;
+                        userService.uploadAvatar(file);
 
-        $scope.save = function () {
+                        var user = {
+                            user_username: $scope.user_username,
+                            user_password: $scope.user_password,
+                            user_email: $scope.user_email,
+                            user_firstname: $scope.user_firstname,
+                            user_lastname: $scope.user_lastname,
+                            user_avatar: file.name,
+                            user_displayname: $scope.user_displayname,
+                            user_active: $scope.user_active
+                        }
 
-            var file = $scope.myFile;
-            userService.uploadAvatar(file);
-
-            var user = {
-                user_username: $scope.user_username,
-                user_password: $scope.user_password,
-                user_email: $scope.user_email,
-                user_firstname: $scope.user_firstname,
-                user_lastname: $scope.user_lastname,
-                user_avatar: file.name,
-                user_displayname: $scope.user_displayname,
-                user_active: $scope.user_active
-            }
-            if ($scope.EditMode === false) {
-                var insertUser = userService.createUser(user);
-                insertUser.then(function () {
-                    getAllUsers();
-                    alert("Insert Success !");
-                });
-            }
-        }
-    });
-
-    app.filter("startFrom", function () {
-        return function (input, start) {
-            if (input) {
-                start = +start;
-                return input.slice(start);
-            }
-            return [];
+                        if (isUpdate === false) {
+                            var insertUser = userService.createUser(user);
+                            insertUser.then(function () {
+                                getAllUsers();
+                                $uibModalInstance.close();
+                            });
+                        }
+                    };
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+                }
+            });
         };
-    });
+        $scope.toggleAnimation = function () {
+            $scope.animationsEnabled = !$scope.animationsEnabled;
+        };
 
+    });
 })();

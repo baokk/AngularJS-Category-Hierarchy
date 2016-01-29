@@ -198,8 +198,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\directives\fileUpload.js" />
+    <Content Include="app\directives\modal.js" />
     <Content Include="app\partials\pager-template.html" />
     <Content Include="app\test.js" />
+    <Content Include="app\user\modal.html" />
     <Content Include="Content\admin\icons\css\simple-line-icons.css" />
     <Content Include="Content\admin\icons\fonts\Simple-Line-Icons.svg" />
     <Content Include="app\app.js" />

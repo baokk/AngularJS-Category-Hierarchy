@@ -1,106 +1,124 @@
 ﻿<div data-ng-controller="userController">
-    <div class="col-md-12">
-        <h3 class="page-header">User</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="page-header">User <span style="font-size: 12px; color:#909293"> Manage users and permissions</span></h3>
+        </div>
     </div>
-    <div class="col-md-12">
-        <div class="search-form">
-            <div class="input-group">
-                <input type="text" data-ng-model="search.user_username" class="form-control input-sm" placeholder="Username">
-                <div class="input-group-addon">
-                    <i class="icon-magnifier"></i>
+
+    <div class="row">
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary" ng-click="open()"><i class="icon-plus"></i> ADD NEW USER</button>
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-4">
+            <div class="search-form">
+                <div class="input-group">
+                    <input type="text" data-ng-model="search.user_username" class="form-control input-sm" placeholder="Username">
+                    <div class="input-group-addon">
+                        <i class="icon-magnifier"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="panel panel-grey">
-            <div class="panel-heading">
-                <h3 class="panel-title"> Add User</h3>
-            </div>
-            <div class="panel-body">
-                <form data-ng-submit="save()" novalidate>
-                    <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" id="username" data-ng-model="user_username" class="form-control">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-grey">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> List Users</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <a href ng-click="order('user_username')">Username</a>
+                                    <span class="sortorder" ng-show="predicate === 'user_username'" ng-class="{reverse:reverse}"></span>
+                                </th>
+                                <th>
+                                    <a href ng-click="order('user_displayname')">Name</a>
+                                    <span class="sortorder" ng-show="predicate === 'user_displayname'" ng-class="{reverse:reverse}"></span>
+                                </th>
+                                <th>Active</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="user in filtered = users | filter:search | orderBy:predicate:reverse | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
+                                <td><img data-ng-src="/uploads/avatars/{{user.user_avatar}}" class="img-circle"></td>
+                                <td>{{user.user_username}}</td>
+                                <td>{{user.user_displayname}}</td>
+                                <td>
+                                    <input type="checkbox" disabled="disabled" data-ng-model="user.user_active" />
+                                </td>
+                                <td>
+                                    <button class="btn btn-warning btn-xs" uib-tooltip="Edit">
+                                        <i class="icon-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-xs" uib-tooltip="Delete">
+                                        <i class="icon-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-right">
+                        <div uib-pagination data-ng-model="currentPage" max-size="5" total-items="totalItems" items-per-page="entryLimit"></div>
                     </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="password" data-ng-model="user_password" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="text" id="email" data-ng-model="user_email" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Firstname</label>
-                        <input type="text" id="firstname" data-ng-model="user_firstname" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Lastname</label>
-                        <input type="text" id="lastname" data-ng-model="user_lastname" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Avatar</label>
-                        <input type="file" file-model="myFile"/>
-                        <!--<input type="text" id="avatar" data-ng-model="user_avatar" class="form-control">-->
-                    </div>
-                    <div class="form-group">
-                        <label>Display name</label>
-                        <input type="text" id="displayname" data-ng-model="user_displayname" class="form-control">
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" id="useractive" data-ng-model="user_active"> Active
-                        </label>
-                    </div>
-                    <button type="submit" class="btn btn-default btn-sm">Save</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-8">
-        <div class="panel panel-grey">
-            <div class="panel-heading">
-                <h3 class="panel-title"> List Users</h3>
-            </div>
-            <div class="panel-body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>
-                            <a href ng-click="order('user_username')">Username</a>
-                            <span class="sortorder" ng-show="predicate === 'user_username'" ng-class="{reverse:reverse}"></span>
-                        </th>
-                        <th>
-                            <a href ng-click="order('user_displayname')">Name</a>
-                            <span class="sortorder" ng-show="predicate === 'user_displayname'" ng-class="{reverse:reverse}"></span>
-                        </th>
-                        <th>Active</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr data-ng-repeat="user in filtered = users | filter:search | orderBy:predicate:reverse | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
-                        <td>{{user.user_username}}</td>
-                        <td>{{user.user_displayname}}</td>
-                        <td>
-                            <input type="checkbox" disabled="disabled" data-ng-model="user.user_active"/>
-                        </td>
-                        <td>
-                            <button class="btn btn-warning btn-xs" uib-tooltip="Edit">
-                                <i class="icon-pencil"></i>
-                            </button>
-                            <button class="btn btn-danger btn-xs" uib-tooltip="Delete">
-                                <i class="icon-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="text-right">
-                    <div uib-pagination data-ng-model="currentPage" max-size="5" total-items="totalItems" items-per-page="entryLimit"></div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+
+    <script type="text/ng-template" id="userModal.html">
+        <form data-ng-submit="save()" novalidate>
+            <div class="modal-header">
+                <h3 class="modal-title">User</h3>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="username" data-ng-model="user_username" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" data-ng-model="user_password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" id="email" data-ng-model="user_email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>First name</label>
+                    <input type="text" id="firstname" data-ng-model="user_firstname" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Last name</label>
+                    <input type="text" id="lastname" data-ng-model="user_lastname" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Avatar</label>
+                    <input type="file" file-model="myFile" />
+                </div>
+                <div class="form-group">
+                    <label>Display name</label>
+                    <input type="text" id="displayname" data-ng-model="user_displayname" class="form-control">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" id="useractive" data-ng-model="user_active"> Active
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+                <input type="submit" class="btn primary-btn" value="Submit" />
+                <!--<button class="btn btn-primary" type="button" ng-click="ok()">Save</button>-->
+            </div>
+        </form>
+    </script>
 </div>

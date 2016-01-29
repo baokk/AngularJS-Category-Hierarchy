@@ -129,6 +129,22 @@ body {
 
 /* Form Styles */
 
+.main-actions {
+    margin-bottom: 10px;
+}
+
+/*.actions {
+    float: left;
+}
+
+.actions button {
+    font-weight: 600;
+}
+
+.actions button i {
+    padding-right: 5px;
+}
+
 .search-form {
     margin-bottom: 10px;
 }
@@ -136,10 +152,11 @@ body {
     .search-form .input-group input {
         float: right;
         width: 250px;
-    }
+    }*/
 
 .panel {
     border-radius: 0;
+    margin-top: 10px;
 }
 
 .panel-grey {
@@ -224,4 +241,9 @@ body {
 input[readonly] {
     background-color: white !important;
     cursor: text !important;
+}
+
+.table tbody tr td img {
+    width: 32px;
+    height: 32px;
 }

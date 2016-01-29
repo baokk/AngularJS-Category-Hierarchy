@@ -1,6 +1,7 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../app/app.js" />
 /// <reference path="../app/directives/fileupload.js" />
+/// <reference path="../app/directives/modal.js" />
 /// <reference path="../app/services/userservice.js" />
 /// <reference path="../app/test.js" />
 /// <reference path="../app/user/usercontroller.js" />
