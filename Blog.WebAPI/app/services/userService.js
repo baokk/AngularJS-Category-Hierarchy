@@ -23,9 +23,10 @@
                 headers: { 'Content-Type': undefined },
                 transformRequest: angular.identity
             })
-            .success(function (d) {
-                defer.resolve(d);
-            })
+            .success(function (data) {
+                //defer.resolve(data.fileName);
+                    return data.filename;
+                })
             .error(function () {
                 defer.reject("File Upload Failed!");
             });
