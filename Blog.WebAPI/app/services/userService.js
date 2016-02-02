@@ -24,9 +24,8 @@
                 transformRequest: angular.identity
             })
             .success(function (data) {
-                //defer.resolve(data.fileName);
-                    return data.filename;
-                })
+                defer.resolve(data);
+            })
             .error(function () {
                 defer.reject("File Upload Failed!");
             });

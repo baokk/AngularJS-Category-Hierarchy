@@ -17,8 +17,8 @@ namespace Blog.WebAPI.Controllers
         [HttpPost]
         public JsonResult UploadFile()
         {
-            string message, fileName;
-            message = fileName = string.Empty;
+            string Message, fileName;
+            Message = fileName = string.Empty;
             bool flag = false;
 
             if (Request.Files != null)
@@ -28,16 +28,16 @@ namespace Blog.WebAPI.Controllers
                     var file = Request.Files[0];
                     fileName = FileUpload.RandomFileName(file.FileName);
                     file.SaveAs(Path.Combine(Server.MapPath("~/Uploads/avatars"), fileName));
-                    message = "File uploaded";
+                    Message = "File uploaded";
                     flag = true;
                 }
                 catch (Exception)
                 {
-                    message = "File upload failed! Please try again";
+                    Message = "File upload failed! Please try again";
                 }
             }
 
-            //return new JsonResult { Data = new { Message = message, Status = flag } };
+            //return new JsonResult { Data = new { Message = Message, Status = flag } };
             return Json(fileName);
         }
     }

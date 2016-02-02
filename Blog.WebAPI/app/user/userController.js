@@ -47,30 +47,32 @@
                 size: size,
                 controller: function ($scope, $uibModalInstance) {
                     $scope.save = function () {
-                        //debugger;
+
                         var file = $scope.myFile;
                         userService.uploadAvatar(file)
-                        .then(function (data) {
-                            alert(data.fileName);
-                        });
-                        //var user = {
-                        //    user_username: $scope.user_username,
-                        //    user_password: $scope.user_password,
-                        //    user_email: $scope.user_email,
-                        //    user_firstname: $scope.user_firstname,
-                        //    user_lastname: $scope.user_lastname,
-                        //    user_avatar: file.name,
-                        //    user_displayname: $scope.user_displayname,
-                        //    user_active: $scope.user_active
-                        //}
+                            .then(function (data) {
 
-                        //if (isUpdate === false) {
-                        //    var insertUser = userService.createUser(user);
-                        //    insertUser.then(function () {
-                        //        getAllUsers();
-                        //        $uibModalInstance.close();
-                        //    });
-                        //}
+                                $scope.newFileName = data;
+
+                                var user = {
+                                    user_username: $scope.user_username,
+                                    user_password: $scope.user_password,
+                                    user_email: $scope.user_email,
+                                    user_firstname: $scope.user_firstname,
+                                    user_lastname: $scope.user_lastname,
+                                    user_avatar: $scope.newFileName,
+                                    user_displayname: $scope.user_displayname,
+                                    user_active: $scope.user_active
+                                }
+
+                                if (isUpdate === false) {
+                                    var insertUser = userService.createUser(user);
+                                    insertUser.then(function () {
+                                        getAllUsers();
+                                        $uibModalInstance.close();
+                                    });
+                                }
+                            });
                     };
 
                     $scope.cancel = function () {
