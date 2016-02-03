@@ -4,6 +4,8 @@
     app.controller("userController", function ($scope, $uibModal, userService, filterFilter) {
 
         getAllUsers();
+        $scope.user_password = null;
+        $scope.passwordConfirmation = null;
         // reset isUpdate after submt
         var isUpdate = false;
 
