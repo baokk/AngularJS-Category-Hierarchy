@@ -51,30 +51,37 @@
                     $scope.save = function () {
 
                         var file = $scope.myFile;
-                        userService.uploadAvatar(file)
-                            .then(function (data) {
 
-                                $scope.newFileName = data;
+                        // check file types image before uploading
+                        var extall = "jpg,jpeg,png";
+                        var ext = file.name.split('.').pop().toLowerCase();
+                        if (parseInt(extall.indexOf(ext)) < 0)
+                            alert("Only upload image with file types are 'jpg', 'jpeg', 'png' !");
+                        else
+                            userService.uploadAvatar(file)
+                                .then(function (data) {
 
-                                var user = {
-                                    user_username: $scope.user_username,
-                                    user_password: $scope.user_password,
-                                    user_email: $scope.user_email,
-                                    user_firstname: $scope.user_firstname,
-                                    user_lastname: $scope.user_lastname,
-                                    user_avatar: $scope.newFileName,
-                                    user_displayname: $scope.user_displayname,
-                                    user_active: $scope.user_active
-                                }
+                                    $scope.newFileName = data;
 
-                                if (isUpdate === false) {
-                                    var insertUser = userService.createUser(user);
-                                    insertUser.then(function () {
-                                        getAllUsers();
-                                        $uibModalInstance.close();
-                                    });
-                                }
-                            });
+                                    var user = {
+                                        user_username: $scope.user_username,
+                                        user_password: $scope.user_password,
+                                        user_email: $scope.user_email,
+                                        user_firstname: $scope.user_firstname,
+                                        user_lastname: $scope.user_lastname,
+                                        user_avatar: $scope.newFileName,
+                                        user_displayname: $scope.user_displayname,
+                                        user_active: $scope.user_active
+                                    }
+
+                                    if (isUpdate === false) {
+                                        var insertUser = userService.createUser(user);
+                                        insertUser.then(function () {
+                                            getAllUsers();
+                                            $uibModalInstance.close();
+                                        });
+                                    }
+                                });
                     };
 
                     $scope.cancel = function () {
