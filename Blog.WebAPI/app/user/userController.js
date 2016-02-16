@@ -51,6 +51,7 @@
                     $scope.save = function () {
 
                         var file = $scope.myFile;
+
                         // check file types image before uploading
                         var extall = "jpg,jpeg,png";
                         var ext = file.name.split('.').pop().toLowerCase();
