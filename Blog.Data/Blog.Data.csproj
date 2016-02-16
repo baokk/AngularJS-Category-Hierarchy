@@ -51,9 +51,9 @@
   <ItemGroup>
     <Compile Include="BlogContext.cs" />
     <Compile Include="GenericRepository.cs" />
-    <Compile Include="Migrations\201601190326284_initialUserClass.cs" />
-    <Compile Include="Migrations\201601190326284_initialUserClass.Designer.cs">
-      <DependentUpon>201601190326284_initialUserClass.cs</DependentUpon>
+    <Compile Include="Migrations\201602090835297_InitialCreate.cs" />
+    <Compile Include="Migrations\201602090835297_InitialCreate.Designer.cs">
+      <DependentUpon>201602090835297_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,8 +74,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201601190326284_initialUserClass.resx">
-      <DependentUpon>201601190326284_initialUserClass.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602090835297_InitialCreate.resx">
+      <DependentUpon>201602090835297_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,10 +3,23 @@ namespace Blog.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initialUserClass : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
-        {            
+        {
+            CreateTable(
+                "dbo.Category",
+                c => new
+                    {
+                        category_id = c.Int(nullable: false, identity: true),
+                        category_name = c.String(nullable: false, maxLength: 255),
+                        category_slug = c.String(nullable: false, maxLength: 255),
+                        category_description = c.String(),
+                        category_parent = c.Int(nullable: false),
+                        category_active = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.category_id);
+            
             CreateTable(
                 "dbo.User",
                 c => new
@@ -28,6 +41,7 @@ namespace Blog.Data.Migrations
         public override void Down()
         {
             DropTable("dbo.User");
+            DropTable("dbo.Category");
         }
     }
 }
