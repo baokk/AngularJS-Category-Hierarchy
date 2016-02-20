@@ -46,17 +46,21 @@
             $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'userModal.html',
-                size: size,
+                //size: size,
                 controller: function ($scope, $uibModalInstance) {
                     $scope.save = function () {
 
                         var file = $scope.myFile;
 
-                        // check file types image before uploading
+                        // check file types image and file size before uploading
                         var extall = "jpg,jpeg,png";
                         var ext = file.name.split('.').pop().toLowerCase();
+
                         if (parseInt(extall.indexOf(ext)) < 0)
-                            alert("Only upload image with file types are 'jpg', 'jpeg', 'png' !");
+                            alert("Please upload image with file types are 'jpg', 'jpeg', 'png' !");
+                        if (file.size > 1024000)
+                            alert("Please upload image less than 1 MB !");
+
                         else
                             userService.uploadAvatar(file)
                                 .then(function (data) {
