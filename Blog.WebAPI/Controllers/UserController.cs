@@ -50,5 +50,15 @@ namespace Blog.WebAPI.Controllers
 
             return CreatedAtRoute("DefaultApi", new {user.id}, user);
         }
+
+        [Route("api/User/CheckUserNameExists")]
+        [HttpGet]
+        public bool CheckUserNameExists(string userName)
+        {
+            var user = _userService.GetAllUsers()
+                .Where(u => u.user_username == userName)
+                .ToList();
+            return user.Count == 0;
+        }
     }
 }

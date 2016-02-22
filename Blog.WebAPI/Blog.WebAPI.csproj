@@ -197,6 +197,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\directives\checkValueExists.js" />
     <Content Include="app\directives\fileUpload.js" />
     <Content Include="app\directives\passwordVerify.js" />
     <Content Include="app\partials\pager-template.html" />

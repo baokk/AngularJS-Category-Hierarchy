@@ -38,6 +38,14 @@
             return $http.post(baseUrl, user);
         }
 
+        // Check Username is exists            
+        factory.checkUserNameExists = function (userName) {
+            var deferred = $q.defer();
+            $http.get(baseUrl + "CheckUserNameExists?userName=" + userName)
+            .success(deferred.resolve)
+            .error(deferred.reject);
+            return deferred.promise;
+        }
         return factory;
 
     });

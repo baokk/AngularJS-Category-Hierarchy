@@ -1,5 +1,6 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="../app/app.js" />
+/// <reference path="../app/directives/checkvalueexists.js" />
 /// <reference path="../app/directives/fileupload.js" />
 /// <reference path="../app/directives/passwordverify.js" />
 /// <reference path="../app/services/userservice.js" />
