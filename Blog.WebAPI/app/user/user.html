@@ -80,59 +80,75 @@
                 <h3 class="modal-title">User</h3>
             </div>
             <div class="modal-body">
-                <!--!userForm.userName.$pristine-->
                 <div class="row">
                     <div class="col-md-4 text-center">
-                        <img src="../../Uploads/avatars/20160202112848747avatar.png" width="128" height="128"
-                             class="img-thumbnail img-rounded user-edit-dialog-profile-image">
+                        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTMwY2Y1MzY3MiB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MzBjZjUzNjcyIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ1LjUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" 
+                             width="128" height="128" class="img-thumbnail img-rounded user-edit-dialog-profile-image">
                     </div>
                     <div class="col-md-8">
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.userName.$dirty && userForm.userName.$invalid}">
+                        <div class="form-group" ng-class="{ 'has-error': userForm.userName.$touched && userForm.userName.$invalid }">
                             <label>Username</label>
-                            <input type="text" id="userName"
-                                   name="userName"
-                                   class="form-control"
+                            <input type="text" name="userName" class="form-control"
                                    data-ng-model="user_username"
+                                   ng-minlength="3"
+                                   ng-maxlength="50"
                                    ng-pattern="/^[A-z][A-z0-9]*$/"
                                    required
                                    usernameavail>
-                            <span class="help-block" ng-show="userForm.userName.$dirty && userForm.userName.$error.required">
-                                Username is required.
-                            </span>
-                            <span class="help-block" ng-show="userForm.userName.$dirty && userForm.userName.$error.unique">
-                                Username already in use.
-                            </span>
-                            <span class="help-block"
-                                  ng-show="!userForm.userName.$error.minLength
-                                  && !userForm.userName.$error.maxLength
-                                  && userForm.userName.$error.pattern
-                                  && userForm.userName.$dirty">
-                                Must start with a letter, and contain letters &amp; numbers only.
-                            </span>
+
+                            <div class="help-block" ng-messages="userForm.userName.$error" ng-if="userForm.userName.$touched">
+                                <p ng-message="minlength">Username is too short.</p>
+                                <p ng-message="maxlength">Username is too long.</p>
+                                <p ng-message="required">Username is required.</p>
+                                <p ng-message="pattern">Must start with a letter, and contain letters &amp; numbers only.</p>
+                                <p ng-message="unique">Username already in use.</p>
+                            </div>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$touched && userForm.email.$invalid}">
                             <label>Email address</label>
-                            <input type="email" id="email" name="email" data-ng-model="user_email" class="form-control" required>
-                            <span class="help-block" ng-show="userForm.email.$invalid && !userForm.email.$pristine">
-                                Enter a valid email.
-                            </span>
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   data-ng-model="user_email"
+                                   class="form-control"
+                                   required
+                                   emailavail>
+                            <div class="help-block" ng-messages="userForm.email.$error" ng-if="userForm.email.$touched">
+                                <p ng-message="required">Email is required.</p>
+                                <p ng-message="email">Enter a valid email.</p>
+                                <p ng-message="unique">Email already in use.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group" ng-class="{'has-error': !userForm.password.$valid && !userForm.password.$pristine}">
+
+                <div class="form-group" ng-class="{'has-error': userForm.password.$touched && userForm.password.$invalid}">
                     <label for="password">Password</label>
-                    <input class="form-control" type="password" name="password" minlength="6" ng-maxlength="32" required ng-model="user_password" />
-                    <span class="help-block" ng-show="userForm.password.$error.required && userForm.password.$dirty">Password is required.</span>
-                    <span class="help-block" ng-show="!userForm.password.$error.required && (userForm.password.$error.minlength || userForm.password.$error.maxlength) && userForm.password.$dirty">Passwords must be between 6 and 32 characters.</span>
+                    <input class="form-control"
+                           type="password"
+                           name="password"
+                           data-ng-model="user_password"
+                           ng-minlength="6"
+                           ng-maxlength="32"
+                           required />
+                    <div class="help-block" ng-messages="userForm.password.$error" ng-if="userForm.password.$touched">
+                        <p ng-message="required">Password is required.</p>
+                        <p ng-message="minlength && maxlength">Passwords must be between 6 and 32 characters.</p>
+                    </div>
                 </div>
-
-                <div class="form-group" ng-class="{'has-error': !userForm.passwordConfirmation.$valid && !userForm.passwordConfirmation.$pristine}">
-                    <label for="passwordConfirmation">Confirm password</label>
-                    <input class="form-control" type="password" name="passwordConfirmation" required ng-model="passwordConfirmation" password-confirm match-target="user_password" />
-                    <span class="help-block" ng-show="userForm.passwordConfirmation.$error.required && userForm.passwordConfirmation.$dirty">Confirm password is required.</span>
-                    <span class="help-block" ng-show="!userForm.passwordConfirmation.$error.required && userForm.passwordConfirmation.$dirty && userForm.passwordConfirmation.$error.match">Passwords do not match.</span>
+                <div class="form-group" ng-class="{'has-error': userForm.passwordConfirmation.$touched && userForm.passwordConfirmation.$invalid}">
+                    <label for="password">Confirm password</label>
+                    <input class="form-control"
+                           type="password"
+                           name="passwordConfirmation"
+                           data-ng-model="passwordConfirmation"
+                           password-confirm match-target="user_password"
+                           required />
+                    <div class="help-block" ng-messages="userForm.passwordConfirmation.$error" ng-if="userForm.passwordConfirmation.$touched">
+                        <p ng-message="required">Confirm password is required.</p>
+                        <p ng-message="match">Confirm password do not match.</p>
+                    </div>
                 </div>
-
                 <div class="form-group">
                     <label>First name</label>
                     <input type="text" id="firstname" data-ng-model="user_firstname" class="form-control">

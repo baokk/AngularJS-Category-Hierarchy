@@ -1,4 +1,4 @@
-﻿var app = angular.module("BlogApp", ["ngAnimate", "ui.router", "ui.bootstrap"]);
+﻿var app = angular.module("BlogApp", ["ngAnimate", "ui.router", "ui.bootstrap", "ngMessages"]);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
 

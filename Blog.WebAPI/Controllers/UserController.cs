@@ -60,5 +60,15 @@ namespace Blog.WebAPI.Controllers
                 .ToList();
             return user.Count == 0;
         }
+
+        [Route("api/User/CheckEmailExists")]
+        [HttpGet]
+        public bool CheckEmailExists(string email)
+        {
+            var user = _userService.GetAllUsers()
+                .Where(u => u.user_email == email)
+                .ToList();
+            return user.Count == 0;
+        }
     }
 }

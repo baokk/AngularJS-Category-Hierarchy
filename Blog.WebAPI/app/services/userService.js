@@ -46,6 +46,16 @@
             .error(deferred.reject);
             return deferred.promise;
         }
+
+        // Check email is exists            
+        factory.checkEmailExists = function (email) {
+            var deferred = $q.defer();
+            $http.get(baseUrl + "CheckEmailExists?email=" + email)
+            .success(deferred.resolve)
+            .error(deferred.reject);
+            return deferred.promise;
+        }
+
         return factory;
 
     });
