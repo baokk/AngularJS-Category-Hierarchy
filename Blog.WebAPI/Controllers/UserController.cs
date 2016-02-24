@@ -12,12 +12,22 @@ namespace Blog.WebAPI.Controllers
 {
     public class UserController : ApiController
     {
+        #region Fields
+
         private readonly IUserService _userService;
+
+        #endregion
+
+        #region Contructors
 
         public UserController(IUserService userService)
         {
             _userService = userService;
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Get all Users
@@ -29,27 +39,49 @@ namespace Blog.WebAPI.Controllers
             return users;
         }
 
-        [ResponseType((typeof (User)))]
+        [ResponseType((typeof(User)))]
         public IHttpActionResult PostUser(User user)
         {
-            if (ModelState.IsValid)
+            try
             {
-                // encrypt password in SHA256
-                HashAlgorithm hash = new SHA256Managed();
-                var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(user.user_password);
-                var hashBytes = hash.ComputeHash(plainTextBytes);
+                if (ModelState.IsValid)
+                {
+                    // encrypt password in SHA256
+                    HashAlgorithm hash = new SHA256Managed();
+                    var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(user.user_password);
+                    var hashBytes = hash.ComputeHash(plainTextBytes);
 
-                user.user_password = Convert.ToBase64String(hashBytes);
+                    user.user_password = Convert.ToBase64String(hashBytes);
 
-                _userService.InsertUser(user);
+                    _userService.InsertUser(user);
+                }
+                else
+                {
+                    return BadRequest((ModelState));
+                }
+
+                return CreatedAtRoute("DefaultApi", new { user.id }, user);
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest((ModelState));
-            }
 
-            return CreatedAtRoute("DefaultApi", new {user.id}, user);
+                throw ex;
+            }
         }
+
+        [ResponseType((typeof(User)))]
+        public IHttpActionResult GetUser(int id)
+        {
+            var user = _userService.GetUserById(id);
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
+        }
+
+        #endregion
+
+        #region Helpers
 
         [Route("api/User/CheckUserNameExists")]
         [HttpGet]
@@ -70,5 +102,7 @@ namespace Blog.WebAPI.Controllers
                 .ToList();
             return user.Count == 0;
         }
+
+        #endregion
     }
 }

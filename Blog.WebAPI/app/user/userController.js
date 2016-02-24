@@ -42,12 +42,12 @@
 
         // show modal
         $scope.animationsEnabled = true;
-        $scope.open = function (size) {
+        $scope.open = function () {
             $uibModal.open({
                 animation: $scope.animationsEnabled,
                 templateUrl: 'userModal.html',
-                //size: size,
                 controller: function ($scope, $uibModalInstance) {
+
                     $scope.save = function () {
 
                         var file = $scope.myFile;
@@ -87,7 +87,6 @@
                                     }
                                 });
                     };
-
                     $scope.cancel = function () {
                         $uibModalInstance.dismiss('cancel');
                     };
@@ -98,6 +97,33 @@
         $scope.toggleAnimation = function () {
             $scope.animationsEnabled = !$scope.animationsEnabled;
         };
+
+        // Get details user
+        $scope.getUser = function (user) {
+            $uibModal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'userModal.html',
+                controller: function ($scope, $uibModalInstance) {
+                    var promiseGetUser = userService.getUser(user.id);
+                    promiseGetUser.then(function (pl) {
+                        var res = pl.data;
+                        $scope.user_username = res.user_username;
+                        $scope.user_password = res.user_password;
+                        $scope.user_email = res.user_email;
+                        $scope.user_firstname = res.user_firstname;
+                        $scope.user_lastname = res.user_lastname;
+                        $scope.user_avatar = res.user_avatar;
+                        $scope.user_displayname = res.user_displayname;
+                        $scope.user_active = res.user_active;
+
+                        $scope.isUpdate = true;
+                    })
+                    $scope.cancel = function () {
+                        $uibModalInstance.dismiss('cancel');
+                    };
+                }
+            });
+        }
 
     });
 })();

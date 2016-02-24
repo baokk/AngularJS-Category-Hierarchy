@@ -11,6 +11,11 @@
             return $http.get(baseUrl);
         };
 
+        // GET single user
+        factory.getUser = function (id) {
+            return $http.get(baseUrl + id);
+        }
+
         // upload user's avatar
         factory.uploadAvatar = function (file) {
             var fd = new FormData();

@@ -1,4 +1,5 @@
-﻿app.directive('usernameavail', ['userService', function (userService) {
+﻿// check user name available
+app.directive('usernameAvailable', ['userService', function (userService) {
     var directive = {
         restrict: 'A',
         require: 'ngModel',
@@ -13,13 +14,13 @@
                     ngModel.$setValidity('unique', true);
                 });
             });
-
         }
     }
     return directive;
 }]);
 
-app.directive('emailavail', ['userService', function (userService) {
+// check email available
+app.directive('emailAvailable', ['userService', function (userService) {
     var directive = {
         restrict: 'A',
         require: 'ngModel',
@@ -34,7 +35,6 @@ app.directive('emailavail', ['userService', function (userService) {
                     ngModel.$setValidity('unique', true);
                 });
             });
-
         }
     }
     return directive;
