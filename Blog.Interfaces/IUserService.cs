@@ -20,5 +20,12 @@ namespace Blog.Interfaces
         /// </summary>
         /// <param name="user">user</param>
         void InsertUser (User user);
+
+        /// <summary>
+        /// Get user by id
+        /// </summary>
+        /// <param name="id">id</param>
+        /// <returns>user</returns>
+        User GetUserById(int id);
     }
 }
