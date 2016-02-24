@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Linq;
 using Blog.Domains;
+using System;
 
 namespace Blog.Services
 {
@@ -38,6 +39,12 @@ namespace Blog.Services
         {
             _unitOfWork.UserRepository.Insert(user);
             Save();
+        }
+
+        public User GetUserById(int id)
+        {
+            var user = _unitOfWork.UserRepository.GetById(id);
+            return user;
         }
 
         #endregion
