@@ -109,6 +109,7 @@
                         var res = pl.data;
                         $scope.user_username = res.user_username;
                         $scope.user_password = res.user_password;
+                        $scope.passwordConfirmation = res.user_password;
                         $scope.user_email = res.user_email;
                         $scope.user_firstname = res.user_firstname;
                         $scope.user_lastname = res.user_lastname;

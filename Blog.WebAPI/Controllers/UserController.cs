@@ -90,7 +90,11 @@ namespace Blog.WebAPI.Controllers
             var user = _userService.GetAllUsers()
                 .Where(u => u.user_username == userName)
                 .ToList();
-            return user.Count == 0;
+            return user.Count > 0;
+            //if (user == true)
+            //    return true;
+            //else
+            //    return false;
         }
 
         [Route("api/User/CheckEmailExists")]
@@ -100,7 +104,7 @@ namespace Blog.WebAPI.Controllers
             var user = _userService.GetAllUsers()
                 .Where(u => u.user_email == email)
                 .ToList();
-            return user.Count == 0;
+            return user.Count > 0;
         }
 
         #endregion
