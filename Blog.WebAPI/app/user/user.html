@@ -90,21 +90,21 @@
                              class="img-thumbnail img-rounded user-edit-dialog-profile-image">
                     </div>
                     <div class="col-md-8">
-                        <div class="form-group" ng-class="{ 'has-error': userForm.userName.$dirty && userForm.userName.$invalid }">
+                        <div class="form-group" ng-class="{ 'has-error': userForm.userName.$touched && userForm.userName.$invalid }">
                             <label>Username</label>
                             <input type="text" 
                                    id="userName" 
                                    name="userName" 
                                    class="form-control"
                                    data-ng-model="user_username"
+                                   data-ng-model-options="{ updateOn: 'blur' }"
                                    ng-minlength="3"
                                    ng-maxlength="50"
                                    ng-pattern="/^[A-z][A-z0-9]*$/"
                                    required
-                                   ng-model-options="{ updateOn: 'blur' }"
                                    username-available>
 
-                            <div class="help-block" ng-messages="userForm.userName.$error" ng-if="userForm.userName.$dirty">
+                            <div class="help-block" ng-messages="userForm.userName.$error" ng-if="userForm.userName.$touched">
                                 <p ng-message="minlength">Username is too short.</p>
                                 <p ng-message="maxlength">Username is too long.</p>
                                 <p ng-message="required">Username is required.</p>
@@ -112,7 +112,7 @@
                                 <p ng-message="unique">Username already in use.</p>
                             </div>
                         </div>
-                        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$touched && userForm.email.$invalid}">
+                        <!--<div class="form-group" ng-class="{ 'has-error' : userForm.email.$touched && userForm.email.$invalid}">
                             <label>Email address</label>
                             <input type="email"
                                    id="email"
@@ -127,7 +127,7 @@
                                 <p ng-message="email">Enter a valid email.</p>
                                 <p ng-message="unique">Email already in use.</p>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
 

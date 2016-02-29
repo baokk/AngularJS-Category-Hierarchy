@@ -4,14 +4,17 @@ app.directive('usernameAvailable', ['userService', function (userService) {
         restrict: 'A',
         require: 'ngModel',
         link: function (scope, element, attrs, ngModel) {
-            scope.$watch(attrs.ngModel, function (value) {
-                debugger;
-                userService.checkUserNameExists(value)
-                .then(function (response) {
-                    ngModel.$setValidity('unique', response);
-                }, function () {
-                    ngModel.$setValidity('unique', true);
-                });
+            element.on('blur', function (evt) {
+                if (!ngModel || !element.val()) return;
+                var curValue = element.val();
+                if (curValue != scope.user_username || curValue != ngModel.$viewValue)
+                    userService.checkUserNameExists(curValue)
+                    .then(function (response) {
+                        ngModel.$setValidity('unique', response);
+                    }, function () {
+                        ngModel.$setValidity('unique', true);
+                    });
+
             });
         }
     }

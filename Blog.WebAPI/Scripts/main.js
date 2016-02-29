@@ -22,9 +22,9 @@ require(
         //'customersApp/controllers/orders/orderChildController',
         //'user/userService',
         //'user/userControler',
-        'directives/knUnique',
-        'directives/fileUpload',
-        'directives/passwordVerify'
+        //'directives/knUnique',
+        //'directives/fileUpload',
+        //'directives/passwordVerify'
     ], function () {
         angular.bootstrap(document, ['BlogApp']);
     });
