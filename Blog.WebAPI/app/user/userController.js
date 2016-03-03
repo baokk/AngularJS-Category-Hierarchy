@@ -107,6 +107,7 @@
                     var promiseGetUser = userService.getUser(user.id);
                     promiseGetUser.then(function (pl) {
                         var res = pl.data;
+                        $scope.id = res.id;
                         $scope.user_username = res.user_username;
                         $scope.user_password = res.user_password;
                         $scope.passwordConfirmation = res.user_password;

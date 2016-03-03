@@ -83,29 +83,37 @@ namespace Blog.WebAPI.Controllers
 
         #region Helpers
 
-        [Route("api/User/CheckUserNameExists")]
+        [Route("api/User/CheckUniqueValue")]
         [HttpGet]
-        public bool CheckUserNameExists(string userName)
+        public bool CheckUniqueValue(int id, string value, string property)
         {
-            var user = _userService.GetAllUsers()
-                .Where(u => u.user_username == userName)
-                .ToList();
-            return user.Count == 0;
-            //if (user == true)
-            //    return true;
-            //else
-            //    return false;
+            switch (property.ToLower())
+            {
+                case "username":
+                    var user = _userService.GetAllUsers()
+                    .Where(u => u.id != id && u.user_username == value)
+                    .ToList();
+                    return user.Count == 0;
+
+                case "email":
+                    var email = _userService.GetAllUsers()
+                    .Where(u => u.id != id && u.user_email == value)
+                    .ToList();
+                    return email.Count == 0;
+            }
+
+            return false;
         }
 
-        [Route("api/User/CheckEmailExists")]
-        [HttpGet]
-        public bool CheckEmailExists(string email)
-        {
-            var user = _userService.GetAllUsers()
-                .Where(u => u.user_email == email)
-                .ToList();
-            return user.Count == 0;
-        }
+        //[Route("api/User/CheckEmailExists")]
+        //[HttpGet]
+        //public bool CheckEmailExists(int id, string email)
+        //{
+        //    var user = _userService.GetAllUsers()
+        //        .Where(u => u.id != id && u.user_email == email)
+        //        .ToList();
+        //    return user.Count == 0;
+        //}
 
         #endregion
     }

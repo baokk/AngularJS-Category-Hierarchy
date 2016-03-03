@@ -44,18 +44,18 @@
         }
 
         // Check Username is exists            
-        factory.checkUserNameExists = function (userName) {
+        factory.checkUniqueValue = function (id, value, property) {
             var deferred = $q.defer();
-            $http.get(baseUrl + "CheckUserNameExists?userName=" + userName)
+            $http.get(baseUrl + "CheckUniqueValue?id=" + id + "&value=" + value + "&property=" + property)
             .success(deferred.resolve)
             .error(deferred.reject);
             return deferred.promise;
         }
 
         // Check email is exists            
-        factory.checkEmailExists = function (email) {
+        factory.checkEmailExists = function (id, email) {
             var deferred = $q.defer();
-            $http.get(baseUrl + "CheckEmailExists?email=" + email)
+            $http.get(baseUrl + "CheckEmailExists?id=" + id + "&email=" + email)
             .success(deferred.resolve)
             .error(deferred.reject);
             return deferred.promise;

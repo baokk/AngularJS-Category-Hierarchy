@@ -82,27 +82,27 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-4 text-center">
-                        <img 
-                             src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTMxMTkwN2M0MSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MzExOTA3YzQxIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ1LjUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4="
+                        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNTMxMTkwN2M0MSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1MzExOTA3YzQxIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ1LjUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4="
                              ng-src="../../Uploads/avatars/{{user_avatar}}"
-                             width="128" 
-                             height="128" 
+                             width="128"
+                             height="128"
                              class="img-thumbnail img-rounded user-edit-dialog-profile-image">
                     </div>
                     <div class="col-md-8">
                         <div class="form-group" ng-class="{ 'has-error': userForm.userName.$touched && userForm.userName.$invalid }">
                             <label>Username</label>
-                            <input type="text" 
-                                   id="userName" 
-                                   name="userName" 
+                            <input type="text"
+                                   id="userName"
+                                   name="userName"
                                    class="form-control"
                                    data-ng-model="user_username"
-                                   data-ng-model-options="{ updateOn: 'blur' }"
                                    ng-minlength="3"
                                    ng-maxlength="50"
                                    ng-pattern="/^[A-z][A-z0-9]*$/"
                                    required
-                                   username-available>
+                                   kn-unique
+                                   kn-unique-key="{{id}}"
+                                   kn-unique-property="username">
 
                             <div class="help-block" ng-messages="userForm.userName.$error" ng-if="userForm.userName.$touched">
                                 <p ng-message="minlength">Username is too short.</p>
@@ -112,22 +112,23 @@
                                 <p ng-message="unique">Username already in use.</p>
                             </div>
                         </div>
-                        <!--<div class="form-group" ng-class="{ 'has-error' : userForm.email.$touched && userForm.email.$invalid}">
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$touched && userForm.email.$invalid}">
                             <label>Email address</label>
                             <input type="email"
                                    id="email"
                                    name="email"
                                    data-ng-model="user_email"
                                    class="form-control"
-                                   required
-                                   email-available>
+                                   kn-unique
+                                   kn-unique-key="{{id}}"
+                                   kn-unique-property="email">
 
                             <div class="help-block" ng-messages="userForm.email.$error" ng-if="userForm.email.$touched">
                                 <p ng-message="required">Email is required.</p>
                                 <p ng-message="email">Enter a valid email.</p>
                                 <p ng-message="unique">Email already in use.</p>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                 </div>
 

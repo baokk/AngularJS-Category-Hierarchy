@@ -1,41 +1,22 @@
 ﻿// check user name available
-app.directive('usernameAvailable', ['userService', function (userService) {
+app.directive('knUnique', ['userService', function (userService) {
     var directive = {
         restrict: 'A',
         require: 'ngModel',
         link: function (scope, element, attrs, ngModel) {
             element.on('blur', function (evt) {
-                if (!ngModel || !element.val()) return;
-                var curValue = element.val();
-                if (curValue != scope.user_username || curValue != ngModel.$viewValue)
-                    userService.checkUserNameExists(curValue)
-                    .then(function (response) {
-                        ngModel.$setValidity('unique', response);
-                    }, function () {
-                        ngModel.$setValidity('unique', true);
-                    });
-
-            });
-        }
-    }
-    return directive;
-}]);
-
-// check email available
-app.directive('emailAvailable', ['userService', function (userService) {
-    var directive = {
-        restrict: 'A',
-        require: 'ngModel',
-        link: function (scope, element, attrs, ngModel) {
-            element.on('blur', function (evt) {
-                if (!ngModel || !element.val()) return;
-                var curValue = element.val();
-                userService.checkEmailExists(curValue)
-                .then(function (response) {
-                    ngModel.$setValidity('unique', response);
-                }, function () {
-                    ngModel.$setValidity('unique', true);
-                });
+                var currentValue = ngModel.$viewValue || ngModel.$modelValue;
+                var key = attrs.knUniqueKey;
+                if (key === "") key = "0";
+                var property = attrs.knUniqueProperty;
+                if (key && property) {
+                    userService.checkUniqueValue(key, currentValue, property)
+                        .then(function (response) {
+                            ngModel.$setValidity('unique', response);
+                        }, function () {
+                            ngModel.$setValidity('unique', true);
+                        });
+                }
             });
         }
     }
