@@ -100,9 +100,9 @@
                                    ng-maxlength="50"
                                    ng-pattern="/^[A-z][A-z0-9]*$/"
                                    required
-                                   kn-unique
-                                   kn-unique-key="{{id}}"
-                                   kn-unique-property="username">
+                                   data-kn-unique
+                                   data-kn-unique-key="{{id}}"
+                                   data-kn-unique-property="username">
 
                             <div class="help-block" ng-messages="userForm.userName.$error" ng-if="userForm.userName.$touched">
                                 <p ng-message="minlength">Username is too short.</p>
@@ -119,9 +119,9 @@
                                    name="email"
                                    data-ng-model="user_email"
                                    class="form-control"
-                                   kn-unique
-                                   kn-unique-key="{{id}}"
-                                   kn-unique-property="email">
+                                   data-kn-unique
+                                   data-kn-unique-key="{{id}}"
+                                   data-kn-unique-property="email">
 
                             <div class="help-block" ng-messages="userForm.email.$error" ng-if="userForm.email.$touched">
                                 <p ng-message="required">Email is required.</p>
@@ -152,7 +152,8 @@
                            type="password"
                            name="passwordConfirmation"
                            data-ng-model="passwordConfirmation"
-                           password-confirm match-target="user_password"
+                           pw-check
+                           match-target="user_password"
                            required />
                     <div class="help-block" ng-messages="userForm.passwordConfirmation.$error" ng-if="userForm.passwordConfirmation.$touched">
                         <p ng-message="required">Confirm password is required.</p>
@@ -169,7 +170,7 @@
                 </div>
                 <div class="form-group">
                     <label>Avatar</label>
-                    <input type="file" file-model="myFile" />
+                    <input type="file" file-model="myFile"/>
                 </div>
                 <div class="form-group">
                     <label>Display name</label>
@@ -187,5 +188,6 @@
             </div>
         </form>
     </script>
+
     <!-- End Modal -->
 </div>

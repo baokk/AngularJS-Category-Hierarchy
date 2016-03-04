@@ -1,5 +1,4 @@
-﻿// check user name available
-app.directive('knUnique', ['userService', function (userService) {
+﻿app.directive('knUnique', ['userService', function (userService) {
     var directive = {
         restrict: 'A',
         require: 'ngModel',

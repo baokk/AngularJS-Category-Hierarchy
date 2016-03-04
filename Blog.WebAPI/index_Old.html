@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html ng-app="BlogApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Khiem Nguyen's Blog</title>
+</head>
+<body>
+
+    <h3>This is my Home Page</h3>
+    <a ui-sref="admin"><i class="icon-user"></i> admin page</a>
+    <div ui-view></div>
+
+    <!--Angularjs Script-->
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Scripts/angular-messages.js"></script>
+    <script src="Scripts/angular-animate.min.js"></script>
+    <script src="Scripts/ui-bootstrap-tpls-1.0.3.min.js"></script>
+    <script src="Scripts/angular-ui-router.min.js"></script>
+
+    <!--App Script-->
+    <script src="app/app.js"></script>
+    <!--<script src="app/services/userService.js"></script>
+    <script src="app/user/userController.js"></script>-->
+
+    <!--Custom Directives-->
+    <!--<script src="app/directives/knFileUpload.js"></script>
+    <script src="app/directives/knConfirmPassword.js"></script>
+    <script src="app/directives/knUnique.js"></script>-->
+
+</body>
+</html>

@@ -4,19 +4,24 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
     // For any unmatched url, send to /
     $urlRouterProvider.otherwise("/");
+
+    // public
     $stateProvider
         .state("home", {
             url: "/",
             templateUrl: "index.html",
-        })
-        .state("user", {
-            url: "/user",
-            templateUrl: "app/user/user.html",
-        })
-        .state("category", {
-            url: "/category",
-            templateUrl: "app/category/category.html",
         });
+
+    // private
+    $stateProvider
+       .state("admin", {
+           url: "/admin",
+           templateUrl: "app/admin/index.html",
+       })
+    .state("admin.user", {
+        url: "/user",
+        templateUrl: "app/admin/components/user/user.html",
+    });
 });
 
 app.filter("startFrom", function () {
@@ -28,8 +33,3 @@ app.filter("startFrom", function () {
         return [];
     };
 });
-
-
-
-
-

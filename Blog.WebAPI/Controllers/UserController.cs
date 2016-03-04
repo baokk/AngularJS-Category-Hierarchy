@@ -30,7 +30,7 @@ namespace Blog.WebAPI.Controllers
         #region Methods
 
         /// <summary>
-        /// Get all Users
+        /// Return the User collection
         /// </summary>
         /// <returns>users</returns>
         public IEnumerable<User> GetUsers()
@@ -39,6 +39,11 @@ namespace Blog.WebAPI.Controllers
             return users;
         }
 
+        /// <summary>
+        /// Insert a user
+        /// </summary>
+        /// <param name="user">The User objects</param>
+        /// <returns></returns>
         [ResponseType((typeof(User)))]
         public IHttpActionResult PostUser(User user)
         {
@@ -69,6 +74,11 @@ namespace Blog.WebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Return a single Product
+        /// </summary>
+        /// <param name="id">The Product id</param>
+        /// <returns></returns>
         [ResponseType((typeof(User)))]
         public IHttpActionResult GetUser(int id)
         {
@@ -83,37 +93,34 @@ namespace Blog.WebAPI.Controllers
 
         #region Helpers
 
+        /// <summary>
+        /// Check a value already exist in database
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <param name="value">value</param>
+        /// <param name="property">property</param>
+        /// <returns>value</returns>
         [Route("api/User/CheckUniqueValue")]
         [HttpGet]
-        public bool CheckUniqueValue(int id, string value, string property)
+        public bool CheckUniqueValue(int key, string value, string property)
         {
             switch (property.ToLower())
             {
                 case "username":
                     var user = _userService.GetAllUsers()
-                    .Where(u => u.id != id && u.user_username == value)
+                    .Where(u => u.id != key && u.user_username == value)
                     .ToList();
                     return user.Count == 0;
 
                 case "email":
                     var email = _userService.GetAllUsers()
-                    .Where(u => u.id != id && u.user_email == value)
+                    .Where(u => u.id != key && u.user_email == value)
                     .ToList();
                     return email.Count == 0;
             }
 
             return false;
         }
-
-        //[Route("api/User/CheckEmailExists")]
-        //[HttpGet]
-        //public bool CheckEmailExists(int id, string email)
-        //{
-        //    var user = _userService.GetAllUsers()
-        //        .Where(u => u.id != id && u.user_email == email)
-        //        .ToList();
-        //    return user.Count == 0;
-        //}
 
         #endregion
     }

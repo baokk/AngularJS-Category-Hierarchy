@@ -1,4 +1,4 @@
-﻿app.directive('passwordConfirm', ['$parse', function ($parse) {
+﻿app.directive('pwCheck', ['$parse', function ($parse) {
     return {
         restrict: 'A',
         scope: {
