@@ -153,7 +153,6 @@
     <Folder Include="app\admin\components\post\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Uploads\avatars\" />
     <Folder Include="Views\Helper\" />
   </ItemGroup>
   <ItemGroup>
@@ -1134,6 +1133,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-1.0.3.min.js" />
     <Content Include="test.html" />
+    <Content Include="Uploads\avatars\user-default.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

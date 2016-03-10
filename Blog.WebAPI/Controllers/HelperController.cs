@@ -37,7 +37,6 @@ namespace Blog.WebAPI.Controllers
                 }
             }
 
-            //return new JsonResult { Data = new { Message = Message, Status = flag } };
             return Json(fileName);
         }
     }

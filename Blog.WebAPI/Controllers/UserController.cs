@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Blog.Common;
+using System.Net;
 
 namespace Blog.WebAPI.Controllers
 {
@@ -51,13 +52,7 @@ namespace Blog.WebAPI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    // encrypt password in SHA256
-                    HashAlgorithm hash = new SHA256Managed();
-                    var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(user.user_password);
-                    var hashBytes = hash.ComputeHash(plainTextBytes);
-
-                    user.user_password = Convert.ToBase64String(hashBytes);
-
+                    user.user_password = Encrypt.EncryptString(user.user_password);
                     _userService.InsertUser(user);
                 }
                 else
@@ -87,6 +82,31 @@ namespace Blog.WebAPI.Controllers
                 return NotFound();
 
             return Ok(user);
+        }
+
+        [ResponseType((typeof(void)))]
+        public IHttpActionResult PutUser(int id, User user)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (id != user.id)
+                return BadRequest();
+
+            var userDetail = _userService.GetUserById(id);
+            userDetail.id = user.id;
+            userDetail.user_username = user.user_username;
+            userDetail.user_password = Encrypt.EncryptString(user.user_password);
+            userDetail.user_email = user.user_email;
+            userDetail.user_firstname = user.user_firstname;
+            userDetail.user_lastname = user.user_lastname;
+            userDetail.user_avatar = user.user_avatar;
+            userDetail.user_displayname = user.user_displayname;
+            userDetail.user_active = user.user_active;
+
+            _userService.UpdateUser(userDetail);
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         #endregion

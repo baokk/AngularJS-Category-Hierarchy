@@ -52,14 +52,10 @@
             return deferred.promise;
         }
 
-        //// Check email is exists            
-        //factory.checkEmailExists = function (id, email) {
-        //    var deferred = $q.defer();
-        //    $http.get(baseUrl + "CheckEmailExists?id=" + id + "&email=" + email)
-        //    .success(deferred.resolve)
-        //    .error(deferred.reject);
-        //    return deferred.promise;
-        //}
+        // UPDATE user
+        factory.updateUser = function (user) {
+            return $http.put(baseUrl + user.id, user);
+        }
 
         return factory;
 
