@@ -70,7 +70,7 @@ namespace Blog.WebAPI.Controllers
         }
 
         /// <summary>
-        /// Return a single Product
+        /// Return a single User
         /// </summary>
         /// <param name="id">The Product id</param>
         /// <returns></returns>
@@ -84,6 +84,12 @@ namespace Blog.WebAPI.Controllers
             return Ok(user);
         }
 
+        /// <summary>
+        /// Update a single User
+        /// </summary>
+        /// <param name="id">The user id</param>
+        /// <param name="user">The user objects</param>
+        /// <returns></returns>
         [ResponseType((typeof(void)))]
         public IHttpActionResult PutUser(int id, User user)
         {
@@ -108,6 +114,21 @@ namespace Blog.WebAPI.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        /// <summary>
+        /// Delete a user
+        /// </summary>
+        /// <param name="id">The User id</param>
+        /// <returns></returns>
+        [ResponseType((typeof(User)))]
+        public IHttpActionResult DeleteUser(int id)
+        {
+            var user = _userService.GetUserById(id);
+            if (user == null) return NotFound();
+            _userService.DeleteUser(user);
+            return Ok(user);
+        }
+
 
         #endregion
 

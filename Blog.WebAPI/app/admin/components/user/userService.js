@@ -38,6 +38,11 @@
             return defer.promise;
         };
 
+        // Delete file in folder 
+        factory.deleteFile = function (fileName) {
+            return $http.post("/Helper/DeleteFile/?fileName=" + fileName);
+        }
+
         // INSERT new user
         factory.createUser = function (user) {
             return $http.post(baseUrl, user);
@@ -55,6 +60,11 @@
         // UPDATE user
         factory.updateUser = function (user) {
             return $http.put(baseUrl + user.id, user);
+        }
+
+        // DELETE user
+        factory.deleteUser = function (id) {
+            return $http.delete(baseUrl + id);
         }
 
         return factory;

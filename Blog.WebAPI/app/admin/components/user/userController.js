@@ -9,8 +9,6 @@
             getAllUsers();
             $scope.user_password = null;
             $scope.passwordConfirmation = null;
-            // reset isUpdate after submit
-            var isUpdate = false;
 
             // get all users
             function getAllUsers() {
@@ -58,7 +56,6 @@
 
             // show modal
             $scope.animationsEnabled = true;
-
             $scope.open = function () {
                 $uibModal.open({
                     animation: $scope.animationsEnabled,
@@ -112,6 +109,7 @@
                                 else
                                     userService.uploadAvatar(file)
                                     .then(function (data) {
+                                        var oldFile = $scope.user.user_avatar;
                                         $scope.newFileName = data;
                                         $scope.user.user_avatar = $scope.newFileName;
                                         if (user.id == 0) {
@@ -122,6 +120,7 @@
                                         }
                                         else {
                                             var editUser = userService.updateUser($scope.user);
+                                            userService.deleteFile(oldFile);
                                             editUser.then(function () {
                                                 getAllUsers();
                                             })
@@ -142,10 +141,35 @@
                     }
                 });
             }
-
             $scope.toggleAnimation = function () {
                 $scope.animationsEnabled = !$scope.animationsEnabled;
             };
+
+            //$scope.showConfirm = function (user) {
+            //    $scope.user = user;
+            //    $("#confirmModal").modal('show');
+            //}
+
+            // confirm modal
+            $scope.openConfirm = function (user) {
+                $uibModal.open({
+                    animation: $scope.animationsEnabled,
+                    templateUrl: 'confirmModal.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.user = user;
+                    }
+                });
+            }
+
+            // delete user
+            $scope.removeUser = function () {
+                debugger;
+                var deleteUser = userService.deleteUser(user.id);
+                userService.deleteFile(user.user_avatar);
+                deleteUser.then(function () {
+                    getAllUsers();
+                });
+            }
 
         }]);
 })();

@@ -57,7 +57,7 @@
                                     <button class="btn btn-warning btn-xs" uib-tooltip="Edit" data-ng-click="editUser(user)">
                                         <i class="icon-pencil"></i>
                                     </button>
-                                    <button class="btn btn-danger btn-xs" uib-tooltip="Delete">
+                                    <button class="btn btn-danger btn-xs" uib-tooltip="Delete" data-ng-click="openConfirm(user)">
                                         <i class="icon-trash"></i>
                                     </button>
                                 </td>
@@ -73,6 +73,21 @@
     </div>
 
     <!-- Modal -->
+
+    <script type="text/ng-template" id="confirmModal.html">
+        <form name="confirmForm">
+            <div class="modal-header">
+                <h3 class="modal-title">Delete User</h3>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete this User?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-ng-click="removeUser()">Ok</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </form>
+    </script>
 
     <script type="text/ng-template" id="userModal.html">
         <form name="userForm" data-ng-submit="save()" novalidate>

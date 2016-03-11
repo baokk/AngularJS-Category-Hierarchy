@@ -39,5 +39,17 @@ namespace Blog.WebAPI.Controllers
 
             return Json(fileName);
         }
+
+        /// <summary>
+        /// Delete file in a folder
+        /// </summary>
+        /// <param name="fileName">name of image</param>
+        [HttpPost]
+        public void DeleteFile(string fileName)
+        {
+            string path = Server.MapPath("~/Uploads/avatars/" + fileName);
+            var file = new FileInfo(path);
+            if (file.Exists) file.Delete();
+        }
     }
 }
