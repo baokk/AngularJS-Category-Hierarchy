@@ -47,6 +47,18 @@ namespace Blog.Services
             return user;
         }
 
+        public void UpdateUser(User user)
+        {
+            _unitOfWork.UserRepository.Update(user);
+            Save();
+        }
+
+        public void DeleteUser(User user)
+        {
+            _unitOfWork.UserRepository.Delete(user);
+            Save();
+        }
+
         #endregion
 
     }
