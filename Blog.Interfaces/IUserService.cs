@@ -33,5 +33,11 @@ namespace Blog.Interfaces
         /// </summary>
         /// <param name="user">user</param>
         void UpdateUser(User user);
+
+        /// <summary>
+        /// Delete user
+        /// </summary>
+        /// <param name="user">user</param>
+        void DeleteUser(User user);
     }
 }
