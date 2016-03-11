@@ -27,5 +27,11 @@ namespace Blog.Interfaces
         /// <param name="id">id</param>
         /// <returns>user</returns>
         User GetUserById(int id);
+
+        /// <summary>
+        /// Update user
+        /// </summary>
+        /// <param name="user">user</param>
+        void UpdateUser(User user);
     }
 }
