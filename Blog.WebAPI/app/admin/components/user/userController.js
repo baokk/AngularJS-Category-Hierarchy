@@ -1,8 +1,6 @@
 ﻿(function () {
     "use strict";
 
-
-
     app.controller("userController", ['$scope', '$uibModal', 'userService', 'filterFilter',
         function ($scope, $uibModal, userService, filterFilter) {
 
@@ -54,14 +52,16 @@
                 $scope.open();
             }
 
-            // show modal
+            // show modal Insert and Update User
             $scope.animationsEnabled = true;
+            $scope.toggleAnimation = function () {
+                $scope.animationsEnabled = !$scope.animationsEnabled;
+            };
             $scope.open = function () {
                 $uibModal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: 'userModal.html',
                     controller: function ($scope, $uibModalInstance, user) {
-
                         $scope.user = user;
 
                         if (user.id == 0)
@@ -129,7 +129,6 @@
                             }
                             $uibModalInstance.close();
                         }
-
                         $scope.cancel = function () {
                             $uibModalInstance.dismiss('cancel');
                         };
@@ -141,35 +140,27 @@
                     }
                 });
             }
-            $scope.toggleAnimation = function () {
-                $scope.animationsEnabled = !$scope.animationsEnabled;
-            };
-
-            //$scope.showConfirm = function (user) {
-            //    $scope.user = user;
-            //    $("#confirmModal").modal('show');
-            //}
-
-            // confirm modal
+            
+            // show confirm modal and delete user
             $scope.openConfirm = function (user) {
                 $uibModal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: 'confirmModal.html',
                     controller: function ($scope, $uibModalInstance) {
                         $scope.user = user;
+                        $scope.removeUser = function (user) {
+                            var deleteUser = userService.deleteUser(user.id);
+                            userService.deleteFile(user.user_avatar);
+                            deleteUser.then(function () {
+                                $uibModalInstance.close();
+                                getAllUsers();
+                            });
+                        };
+                        $scope.cancel = function () {
+                            $uibModalInstance.dismiss('cancel');
+                        };
                     }
                 });
             }
-
-            // delete user
-            $scope.removeUser = function () {
-                debugger;
-                var deleteUser = userService.deleteUser(user.id);
-                userService.deleteFile(user.user_avatar);
-                deleteUser.then(function () {
-                    getAllUsers();
-                });
-            }
-
         }]);
 })();

@@ -72,23 +72,22 @@
         </div>
     </div>
 
-    <!-- Modal -->
-
+    <!-- Confirm Modal -->
     <script type="text/ng-template" id="confirmModal.html">
-        <form name="confirmForm">
-            <div class="modal-header">
-                <h3 class="modal-title">Delete User</h3>
-            </div>
-            <div class="modal-body">
-                Are you sure to delete this User?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-ng-click="removeUser()">Ok</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            </div>
-        </form>
+        <div class="modal-header">
+            <h3 class="modal-title">Delete User</h3>
+        </div>
+        <div class="modal-body">
+            Are you sure you want to delete user <b>{{user.user_username}}</b> ?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="removeUser(user)">Ok</button>
+        </div>
     </script>
+    <!-- End Confirm Modal -->
 
+    <!-- Insert and Update Modal -->
     <script type="text/ng-template" id="userModal.html">
         <form name="userForm" data-ng-submit="save()" novalidate>
             <div class="modal-header">
@@ -199,11 +198,10 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+                <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
                 <button type="submit" class="btn btn-primary" value="Save" ng-disabled="userForm.$invalid">Save</button>
             </div>
         </form>
     </script>
-
     <!-- End Modal -->
 </div>
