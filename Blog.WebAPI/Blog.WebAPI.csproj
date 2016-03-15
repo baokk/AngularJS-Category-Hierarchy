@@ -213,9 +213,11 @@
     <Content Include="app\admin\components\user\userService.js" />
     <Content Include="app\admin\index.html" />
     <Content Include="app\app.js" />
+    <Content Include="app\services\modalService.js" />
     <Content Include="app\shared\directives\knConfirmPassword.js" />
     <Content Include="app\shared\directives\knFileUpload.js" />
     <Content Include="app\shared\directives\knUnique.js" />
+    <Content Include="app\shared\partials\modal.html" />
     <Content Include="app\shared\partials\pager-template.html" />
     <Content Include="Content\admin\icons\css\simple-line-icons.css" />
     <Content Include="Content\admin\icons\fonts\Simple-Line-Icons.svg" />

@@ -2,6 +2,7 @@
 /// <reference path="../app/admin/components/user/usercontroller.js" />
 /// <reference path="../app/admin/components/user/userservice.js" />
 /// <reference path="../app/app.js" />
+/// <reference path="../app/services/modalservice.js" />
 /// <reference path="../app/shared/directives/knconfirmpassword.js" />
 /// <reference path="../app/shared/directives/knfileupload.js" />
 /// <reference path="../app/shared/directives/knunique.js" />
