@@ -1,9 +1,8 @@
 ﻿(function () {
     "use strict";
 
-    app.controller("userController", ['$scope', '$uibModal', 'userService', 'filterFilter', 'modalService',
-    function ($scope, $uibModal, userService, filterFilter, modalService) {
-
+    app.controller("userController", ['$scope', '$uibModal', 'userService', 'filterFilter', 'modalService', 'flash',
+    function ($scope, $uibModal, userService, filterFilter, modalService, flash) {
         getAllUsers();
         $scope.user_password = null;
         $scope.passwordConfirmation = null;
@@ -63,16 +62,13 @@
                 templateUrl: 'userModal.html',
                 controller: function ($scope, $uibModalInstance, user) {
                     $scope.user = user;
-
                     if (user.id == 0)
                         $scope.headerTitle = 'Add User';
                     else
                         $scope.headerTitle = 'Edit User';
 
                     $scope.save = function () {
-
                         var file = $scope.myFile;
-
                         if (file == null) {
                             if (user.id == 0) {
                                 $scope.user.user_avatar = null;
@@ -91,21 +87,17 @@
                                 var editUser = userService.updateUser($scope.user);
                                 editUser.then(function () {
                                     getAllUsers();
+                                    flash.success = 'Saved Successfully !';
                                 })
                             }
                         }
                         else {
-
                             var extall = "jpg,jpeg,png";
-
                             var ext = file.name.split('.').pop().toLowerCase();
-
                             if (parseInt(extall.indexOf(ext)) < 0)
                                 return alert("Please upload image with file types are 'jpg', 'jpeg', 'png' !");
-
                             if (file.size > 1024000)
                                 return alert("Please upload image less than 1 MB !");
-
                             else
                                 userService.uploadAvatar(file)
                                 .then(function (data) {
@@ -128,6 +120,7 @@
                                 });
                         }
                         $uibModalInstance.close();
+                        
                     }
                     $scope.cancel = function () {
                         $uibModalInstance.dismiss('cancel');
@@ -146,8 +139,8 @@
             var modalOptions = {
                 closeButtonText: 'Cancel',
                 actionButtonText: 'Delete User',
-                headerText: 'Delete ' + user.user_username + '?',
-                bodyText: 'Are you sure you want to delete this user?'
+                headerText: 'Delete User',
+                bodyText: 'Are you sure you want to delete user ' + user.user_username + ' ?'
             };
 
             modalService.showModal({}, modalOptions).then(function (result) {
@@ -157,7 +150,7 @@
                     getAllUsers();
                 });
             });
-        };
+        }; 
 
     }]);
 })();

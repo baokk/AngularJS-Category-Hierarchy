@@ -1,10 +1,17 @@
-﻿var app = angular.module("BlogApp", ["ngAnimate", "ui.router", "ui.bootstrap", "ngMessages"]);
+﻿var app = angular.module("BlogApp", ["ngAnimate", "ui.router", "ui.bootstrap", "ngMessages",
+    "angular-flash.service", "angular-flash.flash-alert-directive"]);
 
-app.config(function ($stateProvider, $urlRouterProvider) {
+app.config(function ($stateProvider, $urlRouterProvider, flashProvider) {
+    
+    // config flash message
+    // Support bootstrap 3.0 "alert-danger" class with error flash types
+    flashProvider.errorClassnames.push("alert-danger");
+    flashProvider.warnClassnames.push("alert-warning");
+    flashProvider.infoClassnames.push("alert-info");
+    flashProvider.successClassnames.push("alert-success");
 
     // For any unmatched url, send to /
     $urlRouterProvider.otherwise("/");
-
     // public
     $stateProvider
         .state("home", {
