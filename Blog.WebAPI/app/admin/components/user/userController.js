@@ -75,6 +75,7 @@
                                 var addUser = userService.createUser($scope.user);
                                 addUser.then(function () {
                                     getAllUsers();
+                                    alertSuccess();
                                 })
                             }
                             else {
@@ -87,7 +88,7 @@
                                 var editUser = userService.updateUser($scope.user);
                                 editUser.then(function () {
                                     getAllUsers();
-                                    flash.success = 'Saved Successfully !';
+                                    alertSuccess();
                                 })
                             }
                         }
@@ -108,6 +109,7 @@
                                         var addUser = userService.createUser($scope.user);
                                         addUser.then(function () {
                                             getAllUsers();
+                                            alertSuccess();
                                         })
                                     }
                                     else {
@@ -115,6 +117,7 @@
                                         userService.deleteFile(oldFile);
                                         editUser.then(function () {
                                             getAllUsers();
+                                            alertSuccess();
                                         })
                                     }
                                 });
@@ -148,9 +151,20 @@
                 userService.deleteFile(user.user_avatar);
                 deleteUser.then(function () {
                     getAllUsers();
+                    deleteSuccess();
                 });
             });
         }; 
 
+        // show flashs message
+        var alertSuccess = function() {
+            flash.success = 'Saved Successfully !';
+        }
+
+        var deleteSuccess = function () {
+            flash.success = 'Deleted Successsfully !'
+        }
+
     }]);
+
 })();
