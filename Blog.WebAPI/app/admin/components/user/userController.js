@@ -87,7 +87,7 @@
                                 var editUser = userService.updateUser($scope.user);
                                 editUser.then(function () {
                                     getAllUsers();
-                                   
+
                                 })
                             }
                         }
@@ -151,10 +151,10 @@
                     deleteSuccess();
                 });
             });
-        }; 
+        };
 
         // show flash message
-        var saveSuccess = function() {
+        var saveSuccess = function () {
             flash.success = 'Saved Successfully !';
         }
 

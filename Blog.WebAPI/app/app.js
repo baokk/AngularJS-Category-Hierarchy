@@ -2,7 +2,7 @@
     "angular-flash.service", "angular-flash.flash-alert-directive"]);
 
 app.config(function ($stateProvider, $urlRouterProvider, flashProvider) {
-    
+
     // config flash message
     // Support bootstrap 3.0 "alert-danger" class with error flash types
     flashProvider.errorClassnames.push("alert-danger");
@@ -28,6 +28,10 @@ app.config(function ($stateProvider, $urlRouterProvider, flashProvider) {
     .state("admin.user", {
         url: "/user",
         templateUrl: "app/admin/components/user/user.html",
+    })
+    .state("admin.category", {
+        url: "/category",
+        templateUrl: "app/admin/components/category/category.html",
     });
 });
 
