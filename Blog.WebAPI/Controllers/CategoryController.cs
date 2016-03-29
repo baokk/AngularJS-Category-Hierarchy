@@ -1,5 +1,6 @@
 ﻿using Blog.Domains;
 using Blog.Interfaces;
+using Blog.WebAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,10 +29,43 @@ namespace Blog.WebAPI.Controllers
 
         #region Methods
 
-        public IEnumerable<Category> GetCategories()
+        public IEnumerable<CategoryViewModel> GetCategories()
         {
             var categories = _categoryService.GetAll();
-            return categories;
+            var categoryGrouped = from c in categories
+                                  where c.category_parent == 0
+                                  select new CategoryViewModel
+                                  {
+                                      category_id = c.category_id,
+                                      category_name = c.category_name,
+                                      category_slug = c.category_slug,
+                                      category_description = c.category_description,
+                                      category_parent = c.category_parent,
+                                      category_active = c.category_active,
+                                      categories = GetCategoryChildren(c.category_id)  
+                                  };
+
+            return categoryGrouped;
+        }
+
+        private List<Category> GetCategoryChildren(int categoryId)
+        {
+            var categoryParents = _categoryService.GetAll()
+                .Where(c => c.category_parent == categoryId).ToList();
+            var category = _categoryService.GetCategoryById(categoryId);
+            var listCategory = new List<Category>();
+            foreach (var child in categoryParents)
+            {
+                if (child.category_parent == categoryId)
+                {
+                    child.category_name = category.category_name + " >> " + child.category_name;
+                }
+
+                listCategory.Add(child);
+                listCategory.AddRange(GetCategoryChildren(child.category_id));
+            }
+
+            return listCategory;
         }
 
         #endregion

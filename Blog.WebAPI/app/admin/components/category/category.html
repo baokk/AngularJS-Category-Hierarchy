@@ -1,4 +1,36 @@
 ﻿<div data-ng-controller="categoryController">
+
+    <!--<script type="text/ng-template" id="categoryTree">
+        {{ category.category_name }}
+        <ul ng-if="category.categories">
+            <li data-ng-repeat="category in category.categories" ng-include="'categoryTree'"></li>
+        </ul>
+    </script>
+    <ul>
+        <li data-ng-repeat="category in categories" ng-include="'categoryTree'"></li>
+    </ul>-->
+
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="page-header">Category <span style="font-size: 12px; color:#909293"> Manage categories</span></h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <button type="button" class="btn btn-primary" ng-click="addUser()"><i class="fa fa-plus"></i> ADD NEW CATEGORY</button>
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-4">
+            <div class="search-form">
+                <div class="input-group">
+                    <input type="text" data-ng-model="search.user_username" class="form-control input-sm" placeholder="Category name">
+                    <div class="input-group-addon">
+                        <i class="icon-magnifier"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-grey">
@@ -9,20 +41,39 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>
-                                    <a href="#">Name</a>
-                                </th>
-                                <th>
-                                    <a href="#">Parent</a>
-                                </th>
-                                <th>Active</th>
+                                <th><a href="#">Name</a></th>
+                                <th>Slug</th>
+                                <th style="text-align:center">Active</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr data-ng-repeat="category in categories">
+                            <tr ng-repeat-start="category in categories">
                                 <td>{{category.category_name}}</td>
-                                <td>{{category_parent}}</td>
-                                <td>{{category_active}}</td>
+                                <td>{{category.category_slug}}</td>
+                                <td style="text-align:center"><input type="checkbox" disabled="disabled" ng-model="category.category_active" /></td>
+                                <td style="text-align:center">
+                                    <button class="btn btn-warning btn-xs" uib-tooltip="Edit" data-ng-click="editUser(user)">
+                                        <i class="icon-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-xs" uib-tooltip="Delete" data-ng-click="removeUser(user)">
+                                        <i class="icon-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr ng-repeat-end
+                                ng-repeat="children in category.categories">
+                                <td>{{children.category_name}}</td>
+                                <td>{{children.category_slug}}</td>
+                                <td style="text-align:center"><input type="checkbox" disabled="disabled" ng-model="children.category_active" /></td>
+                                <td style="text-align:center">
+                                    <button class="btn btn-warning btn-xs" uib-tooltip="Edit" data-ng-click="editUser(user)">
+                                        <i class="icon-pencil"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-xs" uib-tooltip="Delete" data-ng-click="removeUser(user)">
+                                        <i class="icon-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
