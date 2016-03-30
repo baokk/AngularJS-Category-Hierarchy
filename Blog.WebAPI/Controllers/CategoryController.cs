@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Blog.WebAPI.Controllers
 {
@@ -66,6 +67,34 @@ namespace Blog.WebAPI.Controllers
             }
 
             return listCategory;
+        }
+
+        // GET: api/Categories/5
+        [ResponseType(typeof(Category))]
+        public IHttpActionResult GetCategory(int id)
+        {
+            var category = _categoryService.GetCategoryById(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return Ok(category);
+        }
+
+        // POST: api/Categories
+        [ResponseType(typeof(Category))]
+        public IHttpActionResult PostCategory(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                _categoryService.InsertCategory(category);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
+            return CreatedAtRoute("DefaultApi", new { id = category.category_id }, category);
         }
 
         #endregion

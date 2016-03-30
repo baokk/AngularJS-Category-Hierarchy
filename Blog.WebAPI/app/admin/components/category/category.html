@@ -16,10 +16,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2">
-            <button type="button" class="btn btn-primary" ng-click="addUser()"><i class="fa fa-plus"></i> ADD NEW CATEGORY</button>
-        </div>
-        <div class="col-md-6"></div>
+        <div class="col-md-8"></div>
         <div class="col-md-4">
             <div class="search-form">
                 <div class="input-group">
@@ -32,7 +29,62 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-4">
+            <div class="panel panel-grey">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> Add Category</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="categoryName" name="categoryName" data-ng-model="category.category_name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Parent</label>
+                        <select name="category"
+                                id="category"
+                                ng-model="category_parent"
+                                class="form-control input-sm"
+                                required>
+
+                            <option value="0" ng-selected="category_parent == 0">
+                                [ Parent ]
+                            </option>
+                            <option ng-repeat-start="category in Categories"
+                                    value="{{category.category_id}}"
+                                    ng-selected="category_parent == category.category_id">
+                                {{category.category_name}}
+                            </option>
+                            <option ng-repeat-end
+                                    ng-repeat="children in category.Categories"
+                                    value="{{children.category_id}}"
+                                    ng-selected="category_parent == children.category_id">
+                                {{children.category_name}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea name="categoryDescription" rows="6" data-ng-model="category_description" class="form-control"></textarea>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="categoryActive" data-ng-model="category.category_active"> Active
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label style="font-weight:600; font-size:12px; color:#808080">Slug:</label>
+                        <label id="lblDomainName" style="font-weight:normal ; font-size:12px;"></label>
+                        <input type="text" id="txtSlug" ng-model="category_slug" style="border:solid 1px #eeeeee; font-size:12px;">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" value="Save" ng-disabled="userForm.$invalid">Save</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
             <div class="panel panel-grey">
                 <div class="panel-heading">
                     <h3 class="panel-title"> List Categories</h3>
@@ -41,39 +93,28 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th><a href="#">Name</a></th>
+                                <th>
+                                    <a href ng-click="order('category_name')">Name</a>
+                                    <span class="sortorder" ng-show="predicate === 'category_name'" ng-class="{reverse:reverse}"></span>
+                                </th>
                                 <th>Slug</th>
                                 <th style="text-align:center">Active</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat-start="category in categories">
+                            <tr data-ng-repeat-start="category in categories | orderBy:predicate:reverse">
                                 <td>{{category.category_name}}</td>
                                 <td>{{category.category_slug}}</td>
                                 <td style="text-align:center"><input type="checkbox" disabled="disabled" ng-model="category.category_active" /></td>
-                                <td style="text-align:center">
-                                    <button class="btn btn-warning btn-xs" uib-tooltip="Edit" data-ng-click="editUser(user)">
-                                        <i class="icon-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-xs" uib-tooltip="Delete" data-ng-click="removeUser(user)">
-                                        <i class="icon-trash"></i>
-                                    </button>
-                                </td>
+                                <td style="text-align:center"></td>
                             </tr>
-                            <tr ng-repeat-end
-                                ng-repeat="children in category.categories">
+                            <tr data-ng-repeat-end
+                                data-ng-repeat="children in category.categories">
                                 <td>{{children.category_name}}</td>
                                 <td>{{children.category_slug}}</td>
                                 <td style="text-align:center"><input type="checkbox" disabled="disabled" ng-model="children.category_active" /></td>
-                                <td style="text-align:center">
-                                    <button class="btn btn-warning btn-xs" uib-tooltip="Edit" data-ng-click="editUser(user)">
-                                        <i class="icon-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-danger btn-xs" uib-tooltip="Delete" data-ng-click="removeUser(user)">
-                                        <i class="icon-trash"></i>
-                                    </button>
-                                </td>
+                                <td style="text-align:center"></td>
                             </tr>
                         </tbody>
                     </table>
