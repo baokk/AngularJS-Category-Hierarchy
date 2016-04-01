@@ -20,7 +20,8 @@
         <div class="col-md-4">
             <div class="search-form">
                 <div class="input-group">
-                    <input type="text" data-ng-model="search.user_username" class="form-control input-sm" placeholder="Category name">
+                    <input type="text" data-ng-model="search.category_name" class="form-control input-sm" placeholder="Category name">
+                    <input type="text" data-ng-model="searchChild.category_name" class="form-control input-sm" placeholder="Child Category name">
                     <div class="input-group-addon">
                         <i class="icon-magnifier"></i>
                     </div>
@@ -103,14 +104,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr data-ng-repeat-start="category in categories | orderBy:predicate:reverse">
+                            <tr data-ng-repeat-start="category in filtered = categories | orderBy:predicate:reverse | filter:search">
                                 <td>{{category.category_name}}</td>
                                 <td>{{category.category_slug}}</td>
                                 <td style="text-align:center"><input type="checkbox" disabled="disabled" ng-model="category.category_active" /></td>
                                 <td style="text-align:center"></td>
                             </tr>
-                            <tr data-ng-repeat-end
-                                data-ng-repeat="children in category.categories">
+                            <tr data-ng-repeat-end 
+                                data-ng-repeat="children in filteredChild = category.categories | filter:searchChild">
                                 <td>{{children.category_name}}</td>
                                 <td>{{children.category_slug}}</td>
                                 <td style="text-align:center"><input type="checkbox" disabled="disabled" ng-model="children.category_active" /></td>

@@ -33,19 +33,18 @@ namespace Blog.WebAPI.Controllers
         public IEnumerable<CategoryViewModel> GetCategories()
         {
             var categories = _categoryService.GetAll();
-            var categoryGrouped = from c in categories
-                                  where c.category_parent == 0
-                                  select new CategoryViewModel
-                                  {
-                                      category_id = c.category_id,
-                                      category_name = c.category_name,
-                                      category_slug = c.category_slug,
-                                      category_description = c.category_description,
-                                      category_parent = c.category_parent,
-                                      category_active = c.category_active,
-                                      categories = GetCategoryChildren(c.category_id)  
-                                  };
-
+            var categoryGrouped = (from c in categories
+                                   where c.category_parent == 0
+                                   select new CategoryViewModel
+                                   {
+                                       category_id = c.category_id,
+                                       category_name = c.category_name,
+                                       category_slug = c.category_slug,
+                                       category_description = c.category_description,
+                                       category_parent = c.category_parent,
+                                       category_active = c.category_active,
+                                       categories = GetCategoryChildren(c.category_id)
+                                   }).OrderByDescending(c => c.category_id);
             return categoryGrouped;
         }
 

@@ -35,7 +35,8 @@ namespace Blog.WebAPI.Controllers
         /// <returns>users</returns>
         public IEnumerable<User> GetUsers()
         {
-            var users = _userService.GetAllUsers().ToList();
+            var users = _userService.GetAllUsers()
+                .OrderByDescending(u => u.user_username);
             return users;
         }
 
