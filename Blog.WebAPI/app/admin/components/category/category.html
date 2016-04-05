@@ -20,7 +20,7 @@
         <div class="col-md-4">
             <div class="search-form">
                 <div class="input-group">
-                    <input type="text" data-ng-model="search.category_name" class="form-control input-sm" placeholder="Category name">
+                    <input type="text" data-ng-model="searchChildren.category_name" class="form-control input-sm" placeholder="Category name">
                     <div class="input-group-addon">
                         <i class="icon-magnifier"></i>
                     </div>
@@ -110,7 +110,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr data-ng-repeat-start="category in filtered = categories | orderBy:predicate:reverse | filter:search">
+                            <tr ng-show="showParent" data-ng-repeat-start="category in categories | orderBy:predicate:reverse">
                                 <td>{{category.category_name}}</td>
                                 <td>{{category.category_slug}}</td>
                                 <td style="text-align: center">
@@ -119,7 +119,7 @@
                                 <td style="text-align: center"></td>
                             </tr>
                             <tr data-ng-repeat-end
-                                data-ng-repeat="children in category.categories">
+                                data-ng-repeat="children in filtered = category.categories | filter:searchChildren">
                                 <td>{{children.category_name}}</td>
                                 <td>{{children.category_slug}}</td>
                                 <td style="text-align: center">

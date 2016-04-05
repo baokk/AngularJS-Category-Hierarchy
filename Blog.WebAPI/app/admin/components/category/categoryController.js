@@ -22,10 +22,18 @@
             $scope.order = function (predicate) {
                 $scope.reverse = ($scope.predicate === predicate) ? !$scope.reverse : false;
                 $scope.predicate = predicate;
-            }; // search on table
-            $scope.$watch("search", function (newVal) {
-                //debugger;
+            };
+
+            // search on table
+            $scope.$watch("searchChildren", function (newVal) {
+                debugger;
+                $scope.showParent = true;
                 $scope.filtered = filter($scope.categories, newVal);
+                //if ($scope.filtered) {
+                //    $scope.showParent = false;
+                //} else {
+                //    $scope.showParent = true;
+                //}
             }, true);
 
             // GET parent categories
@@ -37,13 +45,13 @@
                     $scope.category_name = res.category_name;
                     $scope.category_slug = res.category_slug;
                     $scope.category_description = res.category_description,
-                        $scope.category_parent = res.category_parent;
+                    $scope.category_parent = res.category_parent;
                     $scope.category_active = res.category_active;
 
                 }, function (error) {
                     console.log("message error: " + error);
                 });
-            }; 
+            };
             // GET children categories
             $scope.getChildrenCategory = function (children) {
                 var promiseGetSingle = categoryService.getCategory(children.category_id);
@@ -61,9 +69,8 @@
                 });
             };
 
-            //$scope.domainName = "http://" + document.domain.toString() + "/category/";
-            //// Replace blank with underscore
-            $scope.categoryNameOnBlur = function() {
+            // Replace blank with underscore
+            $scope.categoryNameOnBlur = function () {
                 var slug = ($scope.category.category_name).toString().replace(/_| /g, "-").toLowerCase();
                 $scope.category_slug = slug;
             }
