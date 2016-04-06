@@ -25,15 +25,21 @@
             };
 
             // search on table
-            $scope.$watch("searchChildren", function (newVal) {
+            $scope.$watch("search", function (newVal) {
                 debugger;
                 $scope.showParent = true;
+                $scope.showChildren = true;
                 $scope.filtered = filter($scope.categories, newVal);
-                //if ($scope.filtered) {
-                //    $scope.showParent = false;
-                //} else {
-                //    $scope.showParent = true;
-                //}
+                if (!$scope.filtered.length) {
+                    $scope.filteredChildren = filter($scope.categories.splice(position, 1), newVal);
+                }
+                if ($scope.filtered.length && newVal.category_name !== "") {
+                    $scope.showChildren = false;
+                }
+                if ($scope.filtered.length && newVal.category_name === "") {
+                    $scope.showParent = true;
+                    $scope.showChildren = true;
+                }
             }, true);
 
             // GET parent categories
