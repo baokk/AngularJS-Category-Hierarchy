@@ -30,15 +30,9 @@
                 $scope.showParent = true;
                 $scope.showChildren = true;
                 $scope.filtered = filter($scope.categories, newVal);
-                if (!$scope.filtered.length) {
-                    $scope.filteredChildren = filter($scope.categories.splice(position, 1), newVal);
-                }
-                if ($scope.filtered.length && newVal.category_name !== "") {
-                    $scope.showChildren = false;
-                }
-                if ($scope.filtered.length && newVal.category_name === "") {
-                    $scope.showParent = true;
-                    $scope.showChildren = true;
+                for (var i = 0; i < $scope.filtered.length; i++) {
+                    var a = $scope.filtered[i].categories;
+                    $scope.filteredChildren = filter(a, newVal);
                 }
             }, true);
 

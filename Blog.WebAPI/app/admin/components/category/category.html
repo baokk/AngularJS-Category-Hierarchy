@@ -120,7 +120,7 @@
                             </tr>
                             <tr data-ng-repeat-end
                                 ng-show="showChildren"
-                                data-ng-repeat="children in filteredChildren = category.categories | filter:search">
+                                data-ng-repeat="children in filteredChildren | filter:search">
                                 <td>{{children.category_name}}</td>
                                 <td>{{children.category_slug}}</td>
                                 <td style="text-align: center">
