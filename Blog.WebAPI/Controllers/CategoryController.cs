@@ -54,7 +54,7 @@ namespace Blog.WebAPI.Controllers
                 .Where(c => c.category_parent == categoryId).ToList();
             var category = _categoryService.GetCategoryById(categoryId);
             var listCategory = new List<Category>();
-
+            var a = "- ";
             foreach (var child in categoryParents)
             {
                 if (child.category_parent == categoryId)

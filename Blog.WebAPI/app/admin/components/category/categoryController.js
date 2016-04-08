@@ -40,14 +40,6 @@
                     $scope.showParent = true;
                     $scope.showChildren = true;
                 }
-                //if (!$scope.filtered.length) {
-
-                //} else {
-                //    for (var i = 0; i < $scope.filtered.length; i++) {
-                //        var a = $scope.filtered[i].categories;
-                //        $scope.filteredChildren = filter(a, newVal);
-                //    }
-                //}
             }, true);
 
             // GET parent categories

@@ -110,7 +110,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-show="showParent"  data-ng-repeat-start="parent in filtered = categories | orderBy:predicate:reverse | filter:search.category_name">
+                            <tr 
+                                data-ng-repeat-start="parent in filtered = categories | orderBy:predicate:reverse | filter:search.category_name">
                                 <td>{{parent.category_name}}</td>
                                 <td>{{parent.category_slug}}</td>
                                 <td style="text-align: center">
@@ -118,8 +119,8 @@
                                 </td>
                                 <td style="text-align: center"></td>
                             </tr>
-                        <tr data-ng-repeat-end
-                            ng-show="showChildren"
+                            <tr data-ng-repeat-end
+                           
                                 data-ng-repeat="children in filtered = parent.categories | filter:search.category_name">
                                 <td>{{children.category_name}}</td>
                                 <td>{{children.category_slug}}</td>
