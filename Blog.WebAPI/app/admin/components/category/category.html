@@ -3,11 +3,11 @@
     <!--<script type="text/ng-template" id="categoryTree">
         {{ category.category_name }}
         <ul ng-if="category.categories">
-            <li data-ng-repeat="category in category.categories" ng-include="'categoryTree'"></li>
+            <li data-ng-repeat="category in filtered = category.categories | filter:search.category_name" ng-include="'categoryTree'"></li>
         </ul>
     </script>
     <ul>
-        <li data-ng-repeat="category in categories" ng-include="'categoryTree'"></li>
+        <li data-ng-repeat="category in filtered = categories | filter:search.category_name" ng-include="'categoryTree'"></li>
     </ul>-->
 
     <div class="row">
@@ -110,17 +110,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-show="showParent" data-ng-repeat-start="category in filtered = categories | orderBy:predicate:reverse | filter:search">
-                                <td>{{category.category_name}}</td>
-                                <td>{{category.category_slug}}</td>
+                            <tr ng-show="showParent"  data-ng-repeat-start="parent in filtered = categories | orderBy:predicate:reverse | filter:search.category_name">
+                                <td>{{parent.category_name}}</td>
+                                <td>{{parent.category_slug}}</td>
                                 <td style="text-align: center">
-                                    <input type="checkbox" disabled="disabled" ng-model="category.category_active" />
+                                    <input type="checkbox" disabled="disabled" ng-model="parent.category_active" />
                                 </td>
                                 <td style="text-align: center"></td>
                             </tr>
-                            <tr data-ng-repeat-end
-                                ng-show="showChildren"
-                                data-ng-repeat="children in filteredChildren | filter:search">
+                        <tr data-ng-repeat-end
+                            ng-show="showChildren"
+                                data-ng-repeat="children in filtered = parent.categories | filter:search.category_name">
                                 <td>{{children.category_name}}</td>
                                 <td>{{children.category_slug}}</td>
                                 <td style="text-align: center">

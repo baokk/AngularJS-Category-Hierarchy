@@ -54,12 +54,12 @@ namespace Blog.WebAPI.Controllers
                 .Where(c => c.category_parent == categoryId).ToList();
             var category = _categoryService.GetCategoryById(categoryId);
             var listCategory = new List<Category>();
-            //var breadCrumb = "|_ ";
+
             foreach (var child in categoryParents)
             {
                 if (child.category_parent == categoryId)
                 {
-                    child.category_name =  child.category_name;
+                    child.category_name = category.category_name + " >> " + child.category_name;
                 }
                 listCategory.Add(child);
                 listCategory.AddRange(GetCategoryChildren(child.category_id));

@@ -4,8 +4,8 @@
     app.controller("categoryController", ["$scope", "categoryService", "filterFilter",
         function ($scope, categoryService, filter) {
 
-            // get all categories
-            function getAllCategories() {
+            // get all hierarchy categories
+            function getAllHierarchyCategories() {
                 categoryService.getCategories()
                     .success(function (response) {
                         $scope.categories = response;
@@ -15,7 +15,7 @@
                     });
             }
 
-            getAllCategories();
+            getAllHierarchyCategories();
 
             // sort on table
             $scope.reverse = true;
@@ -26,14 +26,28 @@
 
             // search on table
             $scope.$watch("search", function (newVal) {
-                debugger;
+                //debugger;
                 $scope.showParent = true;
                 $scope.showChildren = true;
                 $scope.filtered = filter($scope.categories, newVal);
-                for (var i = 0; i < $scope.filtered.length; i++) {
-                    var a = $scope.filtered[i].categories;
-                    $scope.filteredChildren = filter(a, newVal);
+                if ($scope.filtered.length) {
+                    $scope.showChildren = false;
                 }
+                if (!$scope.filtered.length) {
+                    $scope.showParent = false;
+                }
+                if (newVal.category_name === "") {
+                    $scope.showParent = true;
+                    $scope.showChildren = true;
+                }
+                //if (!$scope.filtered.length) {
+
+                //} else {
+                //    for (var i = 0; i < $scope.filtered.length; i++) {
+                //        var a = $scope.filtered[i].categories;
+                //        $scope.filteredChildren = filter(a, newVal);
+                //    }
+                //}
             }, true);
 
             // GET parent categories
