@@ -27,19 +27,7 @@
             // search on table
             $scope.$watch("search", function (newVal) {
                 //debugger;
-                $scope.showParent = true;
-                $scope.showChildren = true;
                 $scope.filtered = filter($scope.categories, newVal);
-                if ($scope.filtered.length) {
-                    $scope.showChildren = false;
-                }
-                if (!$scope.filtered.length) {
-                    $scope.showParent = false;
-                }
-                if (newVal.category_name === "") {
-                    $scope.showParent = true;
-                    $scope.showChildren = true;
-                }
             }, true);
 
             // GET parent categories

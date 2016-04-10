@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Xml.Serialization;
 
 namespace Blog.WebAPI.Controllers
 {
@@ -54,16 +55,23 @@ namespace Blog.WebAPI.Controllers
                 .Where(c => c.category_parent == categoryId).ToList();
             var category = _categoryService.GetCategoryById(categoryId);
             var listCategory = new List<Category>();
-            var a = "- ";
+            var breadcrumb = " - ";
+            
             foreach (var child in categoryParents)
             {
-                if (child.category_parent == categoryId)
-                {
-                    child.category_name = category.category_name + " >> " + child.category_name;
-                }
+                child.category_name = child.category_name;
+
                 listCategory.Add(child);
                 listCategory.AddRange(GetCategoryChildren(child.category_id));
             }
+            //foreach (var child in categoryParents)
+            //{
+            //    if (child.category_parent == categoryId)
+            //    {
+            //    }
+            //    listCategory.Add(child);
+            //    listCategory.AddRange(GetCategoryChildren(child.category_id));
+            //}
 
             return listCategory;
         }
