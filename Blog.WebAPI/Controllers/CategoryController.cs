@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Xml.Serialization;
@@ -55,23 +56,17 @@ namespace Blog.WebAPI.Controllers
                 .Where(c => c.category_parent == categoryId).ToList();
             var category = _categoryService.GetCategoryById(categoryId);
             var listCategory = new List<Category>();
-            var breadcrumb = " - ";
-            
-            foreach (var child in categoryParents)
-            {
-                child.category_name = child.category_name;
 
-                listCategory.Add(child);
-                listCategory.AddRange(GetCategoryChildren(child.category_id));
+            var breadCrumb = " - ";
+
+            foreach (var children in categoryParents)
+            {
+
+                children.category_name = breadCrumb + children.category_name;
+
+                listCategory.Add(children);
+                listCategory.AddRange(GetCategoryChildren(children.category_id));
             }
-            //foreach (var child in categoryParents)
-            //{
-            //    if (child.category_parent == categoryId)
-            //    {
-            //    }
-            //    listCategory.Add(child);
-            //    listCategory.AddRange(GetCategoryChildren(child.category_id));
-            //}
 
             return listCategory;
         }
