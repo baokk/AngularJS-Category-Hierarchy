@@ -99,34 +99,34 @@
                 <div class="panel-body">
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th>
-                                    <a href ng-click="order('category_name')">Name</a>
-                                    <span class="sortorder" ng-show="predicate === 'category_name'" ng-class="{reverse:reverse}"></span>
-                                </th>
-                                <th>Slug</th>
-                                <th style="text-align: center">Active</th>
-                                <th></th>
-                            </tr>
+                        <tr>
+                            <th>
+                                <a href ng-click="order('category_name')">Name</a>
+                                <span class="sortorder" ng-show="predicate === 'category_name'" ng-class="{reverse:reverse}"></span>
+                            </th>
+                            <th>Slug</th>
+                            <th style="text-align: center">Active</th>
+                            <th></th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr data-ng-repeat-start="parent in filtered = categories | orderBy:predicate:reverse | filter:search.category_name">
-                                <td>{{parent.category_name}}</td>
-                                <td>{{parent.category_slug}}</td>
-                                <td style="text-align: center">
-                                    <input type="checkbox" disabled="disabled" ng-model="parent.category_active" />
-                                </td>
-                                <td style="text-align: center"></td>
-                            </tr>
-                            <tr data-ng-repeat-end
-                                data-ng-repeat="children in filtered = parent.categories | filter:search.category_name">
-                                <td>{{children.category_name}}</td>
-                                <td>{{children.category_slug}}</td>
-                                <td style="text-align: center">
-                                    <input type="checkbox" disabled="disabled" ng-model="children.category_active" />
-                                </td>
-                                <td style="text-align: center"></td>
-                            </tr>
+                        <tr data-ng-repeat-start="parent in filtered = categories | orderBy:predicate:reverse | filter:search.category_name">
+                            <td>{{parent.category_name}}</td>
+                            <td>{{parent.category_slug}}</td>
+                            <td style="text-align: center">
+                                <input type="checkbox" disabled="disabled" ng-model="parent.category_active"/>
+                            </td>
+                            <td style="text-align: center"></td>
+                        </tr>
+                        <tr data-ng-repeat-end
+                            data-ng-repeat="children in filtered = parent.categories | filter:search.category_name">
+                            <td>{{children.category_name}}</td>
+                            <td>{{children.category_slug}}</td>
+                            <td style="text-align: center">
+                                <input type="checkbox" disabled="disabled" ng-model="children.category_active"/>
+                            </td>
+                            <td style="text-align: center"></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

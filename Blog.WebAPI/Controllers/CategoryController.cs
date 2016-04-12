@@ -57,12 +57,13 @@ namespace Blog.WebAPI.Controllers
             var category = _categoryService.GetCategoryById(categoryId);
             var listCategory = new List<Category>();
 
-            var breadCrumb = " - ";
-
             foreach (var children in categoryParents)
             {
-
-                children.category_name = breadCrumb + children.category_name;
+                children.category_name = category.category_name + " >> " + children.category_name;
+                //foreach (var sub in GetCategoryChildren(children.category_id))
+                //{
+                //    children.category_name = children.category_name;
+                //}
 
                 listCategory.Add(children);
                 listCategory.AddRange(GetCategoryChildren(children.category_id));

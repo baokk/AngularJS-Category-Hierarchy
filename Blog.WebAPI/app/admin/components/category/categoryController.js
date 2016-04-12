@@ -26,7 +26,6 @@
 
             // search on table
             $scope.$watch("search", function (newVal) {
-                //debugger;
                 $scope.filtered = filter($scope.categories, newVal);
             }, true);
 
