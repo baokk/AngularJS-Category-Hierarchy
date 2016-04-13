@@ -10,6 +10,7 @@ using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Xml.Serialization;
+using Microsoft.Ajax.Utilities;
 
 namespace Blog.WebAPI.Controllers
 {
@@ -54,22 +55,36 @@ namespace Blog.WebAPI.Controllers
         {
             var categoryParents = _categoryService.GetAll()
                 .Where(c => c.category_parent == categoryId).ToList();
+            //
             var category = _categoryService.GetCategoryById(categoryId);
             var listCategory = new List<Category>();
 
+            var hyphen = " - ";
+
             foreach (var children in categoryParents)
             {
-                children.category_name = category.category_name + " >> " + children.category_name;
-                //foreach (var sub in GetCategoryChildren(children.category_id))
-                //{
-                //    children.category_name = children.category_name;
-                //}
+
+                if (children.category_parent == categoryId)
+                {
+                    children.category_name = hyphen + children.category_name;
+
+                    var subChildren = _categoryService.GetAll().Where(c => c.category_parent == children.category_id).Distinct();
+
+                    foreach (var child in subChildren)
+                    {
+                        if (child.category_parent == children.category_id)
+                        {
+                            child.category_name = hyphen + child.category_name;
+                            listCategory.AddRange(GetCategoryChildren(child.category_id).Distinct());
+                        }
+                    }
+                }
 
                 listCategory.Add(children);
                 listCategory.AddRange(GetCategoryChildren(children.category_id));
             }
 
-            return listCategory;
+            return listCategory; 
         }
 
         // GET: api/Categories/5
