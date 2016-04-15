@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -51,40 +52,30 @@ namespace Blog.WebAPI.Controllers
             return categoryGrouped;
         }
 
-        private List<Category> GetCategoryChildren(int categoryId)
+        private List<Category> GetCategoryChildren(int categoryId, int hyphen = 0)
         {
             var categoryParents = _categoryService.GetAll()
                 .Where(c => c.category_parent == categoryId).ToList();
-            //
+            
             var category = _categoryService.GetCategoryById(categoryId);
             var listCategory = new List<Category>();
 
-            var hyphen = " - ";
+            hyphen++;
+            var a = " - ";
 
-            foreach (var children in categoryParents)
+
+            foreach (var child in categoryParents)
             {
-
-                if (children.category_parent == categoryId)
+                if (child.category_parent == categoryId)
                 {
-                    children.category_name = hyphen + children.category_name;
+                    child.category_name = hyphen.ToString();
 
-                    var subChildren = _categoryService.GetAll().Where(c => c.category_parent == children.category_id).Distinct();
-
-                    foreach (var child in subChildren)
-                    {
-                        if (child.category_parent == children.category_id)
-                        {
-                            child.category_name = hyphen + child.category_name;
-                            listCategory.AddRange(GetCategoryChildren(child.category_id).Distinct());
-                        }
-                    }
+                    listCategory.Add(child);
+                    listCategory.AddRange(GetCategoryChildren(child.category_id, hyphen));
                 }
-
-                listCategory.Add(children);
-                listCategory.AddRange(GetCategoryChildren(children.category_id));
             }
 
-            return listCategory; 
+            return listCategory;
         }
 
         // GET: api/Categories/5
