@@ -73,9 +73,9 @@
                             if (user.id == 0) {
                                 $scope.user.user_avatar = null;
                                 var addUser = userService.createUser($scope.user);
-                                addUser.then(function () {
+                                addUser.then(function() {
                                     getAllUsers();
-                                })
+                                });
                             }
                             else {
                                 if (!$scope.user.user_avatar) {
@@ -85,10 +85,10 @@
                                     $scope.user.user_avatar = user.user_avatar;
                                 }
                                 var editUser = userService.updateUser($scope.user);
-                                editUser.then(function () {
+                                editUser.then(function() {
                                     getAllUsers();
 
-                                })
+                                });
                             }
                         }
                         else {
@@ -106,16 +106,16 @@
                                     $scope.user.user_avatar = $scope.newFileName;
                                     if (user.id == 0) {
                                         var addUser = userService.createUser($scope.user);
-                                        addUser.then(function () {
+                                        addUser.then(function() {
                                             getAllUsers();
-                                        })
+                                        });
                                     }
                                     else {
                                         var editUser = userService.updateUser($scope.user);
                                         userService.deleteFile(oldFile);
-                                        editUser.then(function () {
+                                        editUser.then(function() {
                                             getAllUsers();
-                                        })
+                                        });
                                     }
                                 });
                         }

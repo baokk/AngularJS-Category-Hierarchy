@@ -52,26 +52,21 @@ namespace Blog.WebAPI.Controllers
             return categoryGrouped;
         }
 
-        private List<Category> GetCategoryChildren(int categoryId, int hyphen = 0)
+        private List<Category> GetCategoryChildren(int categoryId, string hyphen = " - ")
         {
             var categoryParents = _categoryService.GetAll()
                 .Where(c => c.category_parent == categoryId).ToList();
-            
-            var category = _categoryService.GetCategoryById(categoryId);
+           
             var listCategory = new List<Category>();
-
-            hyphen++;
-            var a = " - ";
-
 
             foreach (var child in categoryParents)
             {
                 if (child.category_parent == categoryId)
                 {
-                    child.category_name = hyphen.ToString();
+                    child.category_name = hyphen + child.category_name;
 
                     listCategory.Add(child);
-                    listCategory.AddRange(GetCategoryChildren(child.category_id, hyphen));
+                    listCategory.AddRange(GetCategoryChildren(child.category_id, hyphen + " - "));
                 }
             }
 

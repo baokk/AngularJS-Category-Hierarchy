@@ -38,10 +38,17 @@
                     <div class="panel-body">
                         <div class="form-group" ng-class="{ 'has-error': categoryForm.categoryName.$touched && categoryForm.categoryName.$invalid }">
                             <label>Name</label>
-                            <input type="text" id="categoryName" name="categoryName" data-ng-model="category.category_name" class="form-control" ng-blur="categoryNameOnBlur()"
-                                   required />
+                            <input type="text" 
+                                   id="categoryName"
+                                   name="categoryName"
+                                   data-ng-model="category.category_name"
+                                   class="form-control"
+                                   data-ng-maxlength="255" 
+                                   ng-blur="categoryNameOnBlur()"
+                                   required/>
                             <div class="help-block" ng-messages="categoryForm.categoryName.$error" ng-if="categoryForm.categoryName.$touched">
                                 <p ng-message="required">Category name is required.</p>
+                                <p ng-message="maxlength">Category name maximum length should be 255</p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -49,34 +56,34 @@
                                 Slug <i class="fa fa-question-circle"
                                         uib-tooltip="The “slug” is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens"></i>
                             </label>
-                            <input type="text" id="txtSlug" ng-model="category_slug" class="form-control">
+                            <input type="text" id="txtSlug" data-ng-model="category.category_slug" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Parent</label>
                             <select name="category"
                                     id="category"
-                                    ng-model="category_parent"
+                                    data-ng-model="category_parent"
                                     class="form-control input-sm"
                                     required>
-                                <option value="0" ng-selected="category_parent == 0">
+                                <option value="0" ng-selected="category.category_parent == 0">
                                     [ Parent ]
                                 </option>
-                                <option ng-repeat-start="category in categories"
-                                        value="{{category.category_id}}"
-                                        ng-selected="category_parent == category.category_id">
-                                    {{category.category_name}}
+                                <option ng-repeat-start="parent in categories"
+                                        value="{{parent.category_id}}"
+                                        ng-selected="category_parent == parent.category_id">
+                                    {{parent.category_name}}
                                 </option>
                                 <option ng-repeat-end
                                         ng-repeat="children in category.categories"
                                         value="{{children.category_id}}"
-                                        ng-selected="category_parent == children.category_id">
+                                        ng-selected="children.category_parent == children.category_id">
                                     {{children.category_name}}
                                 </option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea name="categoryDescription" rows="6" data-ng-model="category_description" class="form-control"></textarea>
+                            <textarea name="categoryDescription" rows="6" data-ng-model="category.category_description" class="form-control"></textarea>
                         </div>
                         <div class="checkbox">
                             <label>
@@ -85,7 +92,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn btn-default" type="button" ng-click="cancel()">Cancel</button>
+                        <button class="btn btn-default" type="button" data-ng-click="resetForm()">Cancel</button>
                         <button type="submit" class="btn btn-primary" value="Save" ng-disabled="categoryForm.$invalid">Save</button>
                     </div>
                 </div>
@@ -116,7 +123,14 @@
                             <td style="text-align: center">
                                 <input type="checkbox" disabled="disabled" ng-model="parent.category_active"/>
                             </td>
-                            <td style="text-align: center"></td>
+                            <td>
+                                <button class="btn btn-warning btn-xs" uib-tooltip="Edit" data-ng-click="getParentCategory(parent)">
+                                    <i class="icon-pencil"></i>
+                                </button>
+                                <button class="btn btn-danger btn-xs" uib-tooltip="Delete" data-ng-click="removeUser(user)">
+                                    <i class="icon-trash"></i>
+                                </button>
+                            </td>
                         </tr>
                         <tr data-ng-repeat-end
                             data-ng-repeat="children in filtered = parent.categories | filter:search.category_name">
@@ -125,7 +139,14 @@
                             <td style="text-align: center">
                                 <input type="checkbox" disabled="disabled" ng-model="children.category_active"/>
                             </td>
-                            <td style="text-align: center"></td>
+                            <td>
+                                <button class="btn btn-warning btn-xs" uib-tooltip="Edit" data-ng-click="getChildrenCategory(children)">
+                                    <i class="icon-pencil"></i>
+                                </button>
+                                <button class="btn btn-danger btn-xs" uib-tooltip="Delete" data-ng-click="removeUser(user)">
+                                    <i class="icon-trash"></i>
+                                </button>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -133,4 +154,11 @@
             </div>
         </div>
     </div>
+    <!-- Start flash message template-->
+    <div flash-alert="success" active-class="in alert-flash" class="fade ">
+        <button type="button" class="close" ng-click="hide()">&times;</button>
+        <strong class="alert-heading">Success</strong>
+        <span class="alert-message" ng-bind="flash.message"></span>
+    </div>
+    <!-- End flash message template-->
 </div>

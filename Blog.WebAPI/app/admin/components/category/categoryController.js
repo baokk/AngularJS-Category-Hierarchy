@@ -1,8 +1,10 @@
 ﻿(function () {
     "use strict";
 
-    app.controller("categoryController", ["$scope", "categoryService", "filterFilter",
-        function ($scope, categoryService, filter) {
+    app.controller("categoryController", ["$scope", "categoryService", "filterFilter", "flash",
+        function ($scope, categoryService, filter, flash) {
+
+            $scope.EditMode = false;
 
             // get all hierarchy categories
             function getAllHierarchyCategories() {
@@ -31,15 +33,11 @@
 
             // GET parent categories
             $scope.getParentCategory = function (category) {
+                //debugger;
                 var promiseGetSingle = categoryService.getCategory(category.category_id);
                 promiseGetSingle.then(function (pl) {
                     var res = pl.data;
-                    $scope.category_id = res.category_id;
-                    $scope.category_name = res.category_name;
-                    $scope.category_slug = res.category_slug;
-                    $scope.category_description = res.category_description,
-                    $scope.category_parent = res.category_parent;
-                    $scope.category_active = res.category_active;
+                    $scope.category = category;
 
                 }, function (error) {
                     console.log("message error: " + error);
@@ -50,12 +48,7 @@
                 var promiseGetSingle = categoryService.getCategory(children.category_id);
                 promiseGetSingle.then(function (pl) {
                     var res = pl.data;
-                    $scope.category_id = res.category_id;
-                    $scope.category_name = res.category_name;
-                    $scope.category_slug = res.category_slug;
-                    $scope.category_description = res.category_description,
-                    $scope.category_parent = res.category_parent;
-                    $scope.category_active = res.category_active;
+                    $scope.category = children;
 
                 }, function (error) {
                     console.log("message error: " + error);
@@ -65,7 +58,51 @@
             // Replace blank with underscore
             $scope.categoryNameOnBlur = function () {
                 var slug = ($scope.category.category_name).toString().replace(/_| /g, "-").toLowerCase();
-                $scope.category_slug = slug;
+                $scope.category.category_slug = slug;
             }
+
+            $scope.editCategory = function (category) {
+                $scope.category = category;
+            }
+
+            $scope.save = function () {
+                debugger;
+                var addCategory = categoryService.createCategory($scope.category);
+                addCategory.then(function () {
+                    $scope.resetForm();
+                    getAllHierarchyCategories();
+                    saveSuccess();
+                });
+
+            }
+
+            // RESET form after insert
+            $scope.resetForm = function clear() {
+
+                $scope.category.category_name = "";
+                $scope.category.category_slug = "";
+                $scope.category.category_description = "";
+                $scope.category.category_active = false;
+                $scope.EditMode = false;
+
+                //reset category dropdown after submits
+                if (angular.isDefined($scope.category.category_parent)) {
+                    delete $scope.category.category_parent;
+                }
+
+                // clear validation after submit
+                $scope.categoryForm.$setPristine();
+                $scope.categoryForm.$setUntouched();
+            }
+
+            // show flash message
+            var saveSuccess = function () {
+                flash.success = 'Saved Successfully !';
+            }
+
+            var deleteSuccess = function () {
+                flash.success = 'Deleted Successfully !'
+            }
+
         }]);
 })();
