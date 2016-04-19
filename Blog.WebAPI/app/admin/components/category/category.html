@@ -12,7 +12,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h3 class="page-header">Category <span style="color: #909293; font-size: 12px;"> Manage categories</span></h3>
+            <h3 class="page-header">Category <span style="color: #909293; font-size: 12px;"> Manage category of articles</span></h3>
         </div>
     </div>
     <div class="row">
@@ -62,21 +62,22 @@
                             <label>Parent</label>
                             <select name="category"
                                     id="category"
-                                    data-ng-model="category_parent"
+                                    ng-model="category.category_parent"
                                     class="form-control input-sm"
                                     required>
-                                <option value="0" ng-selected="category.category_parent == 0">
+                                
+                                <option value="0" ng-selected="category_parent == 0">
                                     [ Parent ]
                                 </option>
-                                <option ng-repeat-start="parent in categories"
-                                        value="{{parent.category_id}}"
-                                        ng-selected="category_parent == parent.category_id">
-                                    {{parent.category_name}}
+                                <option ng-repeat-start="category in categories"
+                                        value="{{category.category_id}}"
+                                        ng-selected="category_parent == category.category_id">
+                                    {{category.category_name}}
                                 </option>
                                 <option ng-repeat-end
                                         ng-repeat="children in category.categories"
                                         value="{{children.category_id}}"
-                                        ng-selected="children.category_parent == children.category_id">
+                                        ng-selected="category_parent == children.category_id">
                                     {{children.category_name}}
                                 </option>
                             </select>

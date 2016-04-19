@@ -33,11 +33,12 @@
 
             // GET parent categories
             $scope.getParentCategory = function (category) {
-                //debugger;
+
                 var promiseGetSingle = categoryService.getCategory(category.category_id);
                 promiseGetSingle.then(function (pl) {
                     var res = pl.data;
-                    $scope.category = category;
+                    $scope.category = res;
+                    $scope.category_parent = res.category_parent;
 
                 }, function (error) {
                     console.log("message error: " + error);
@@ -48,7 +49,8 @@
                 var promiseGetSingle = categoryService.getCategory(children.category_id);
                 promiseGetSingle.then(function (pl) {
                     var res = pl.data;
-                    $scope.category = children;
+                    $scope.category = res;
+                    $scope.category_parent = res.category_parent;
 
                 }, function (error) {
                     console.log("message error: " + error);
@@ -66,7 +68,6 @@
             }
 
             $scope.save = function () {
-                debugger;
                 var addCategory = categoryService.createCategory($scope.category);
                 addCategory.then(function () {
                     $scope.resetForm();
@@ -101,7 +102,7 @@
             }
 
             var deleteSuccess = function () {
-                flash.success = 'Deleted Successfully !'
+                flash.success = 'Deleted Successfully !';
             }
 
         }]);
