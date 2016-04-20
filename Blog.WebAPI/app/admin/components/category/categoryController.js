@@ -1,8 +1,8 @@
 ﻿(function () {
     "use strict";
 
-    app.controller("categoryController", ["$scope", "categoryService", "filterFilter", "flash",
-        function ($scope, categoryService, filter, flash) {
+    app.controller("categoryController", ["$scope", "categoryService", "filterFilter", "flash", "modalService",
+        function ($scope, categoryService, filter, flash, modalService) {
 
             $scope.EditMode = false;
             $scope.panelTitle = "Add";
@@ -47,10 +47,10 @@
                 });
             };
             // GET children categories
-            $scope.getChildrenCategory = function (children) {
+            $scope.getChildrenCategory = function (category) {
                 $scope.panelTitle = "Edit";
                 $scope.EditMode = true;
-                var promiseGetSingle = categoryService.getCategory(children.category_id);
+                var promiseGetSingle = categoryService.getCategory(category.category_id);
                 promiseGetSingle.then(function (pl) {
                     var res = pl.data;
                     $scope.category = res;
@@ -89,6 +89,34 @@
                 }
                 saveSuccess();
             }
+
+            $scope.removeCategory = function (category) {
+
+                var promiseGetSingle = categoryService.getCategory(category.category_id);
+
+                promiseGetSingle.then(function (pl) {
+                    var res = pl.data;
+                    var categoryName = res.category_name;
+
+                }, function (error) {
+                    console.log("message error: " + error);
+                });
+
+                //var modalOptions = {
+                //    closeButtonText: 'Cancel',
+                //    actionButtonText: 'Delete Category',
+                //    headerText: 'Delete Category',
+                //    bodyText: 'Are you sure you want to delete category ' + categoryName + ' ?'
+                //};
+
+                //modalService.showModal({}, modalOptions).then(function (result) {
+                //    var deleteCategory = categoryService.deleteCategory(category.category_id);
+                //    deleteCategory.then(function () {
+                //        getAllHierarchyCategories();
+                //        deleteSuccess();
+                //    });
+                //});
+            };
 
             // RESET form after insert
             $scope.resetForm = function clear() {

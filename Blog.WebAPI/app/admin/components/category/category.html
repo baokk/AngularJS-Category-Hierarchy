@@ -128,23 +128,23 @@
                                 <button class="btn btn-warning btn-xs" uib-tooltip="Edit" data-ng-click="getParentCategory(parent)">
                                     <i class="icon-pencil"></i>
                                 </button>
-                                <button class="btn btn-danger btn-xs" uib-tooltip="Delete" data-ng-click="removeUser(user)">
+                                <button class="btn btn-danger btn-xs" uib-tooltip="Delete" data-ng-click="removeCategory(category)">
                                     <i class="icon-trash"></i>
                                 </button>
                             </td>
                         </tr>
                         <tr data-ng-repeat-end
-                            data-ng-repeat="children in filtered = parent.categories | filter:search.category_name">
-                            <td>{{children.category_name}}</td>
-                            <td>{{children.category_slug}}</td>
+                            data-ng-repeat="category in filtered = parent.categories | filter:search.category_name">
+                            <td>{{category.category_name}}</td>
+                            <td>{{category.category_slug}}</td>
                             <td style="text-align: center">
-                                <input type="checkbox" disabled="disabled" ng-model="children.category_active"/>
+                                <input type="checkbox" disabled="disabled" ng-model="category.category_active"/>
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-xs" uib-tooltip="Edit" data-ng-click="getChildrenCategory(children)">
+                                <button class="btn btn-warning btn-xs" uib-tooltip="Edit" data-ng-click="getChildrenCategory(category)">
                                     <i class="icon-pencil"></i>
                                 </button>
-                                <button class="btn btn-danger btn-xs" uib-tooltip="Delete" data-ng-click="removeUser(user)">
+                                <button class="btn btn-danger btn-xs" uib-tooltip="Delete" data-ng-click="removeCategory(category)">
                                     <i class="icon-trash"></i>
                                 </button>
                             </td>

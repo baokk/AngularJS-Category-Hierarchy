@@ -129,7 +129,6 @@ namespace Blog.WebAPI.Controllers
             return Ok(user);
         }
 
-
         #endregion
 
         #region Helpers

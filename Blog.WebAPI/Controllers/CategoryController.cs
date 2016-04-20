@@ -102,6 +102,7 @@ namespace Blog.WebAPI.Controllers
         }
 
         // PUT: api/Categories/5
+        [ResponseType((typeof(void)))]
         public IHttpActionResult PutCategory(int id, Category category)
         {
             if (!ModelState.IsValid)
@@ -127,6 +128,16 @@ namespace Blog.WebAPI.Controllers
                 _categoryService.UpdateCategory(detailCategory);
 
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // DELETE: api/Category/5
+        [ResponseType((typeof(Category)))]
+        public IHttpActionResult DeleteCategory(int id)
+        {
+            var category = _categoryService.GetCategoryById(id);
+            if (category == null) return NotFound();
+            _categoryService.DeleteCategory(category);
+            return Ok(category);
         }
 
         #endregion

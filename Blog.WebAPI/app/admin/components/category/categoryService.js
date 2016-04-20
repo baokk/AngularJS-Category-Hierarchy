@@ -22,6 +22,11 @@
         factory.updateCategory = function (category) {
             return $http.put(baseUrl + category.category_id, category);
         }
+        // DELETE single category
+        factory.deleteCategory = function(id) {
+            return $http.delete(baseUrl + id);
+        }
+
         return factory;
 
     });
