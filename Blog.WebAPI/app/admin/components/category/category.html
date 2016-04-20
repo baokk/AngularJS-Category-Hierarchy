@@ -33,7 +33,7 @@
             <form name="categoryForm" data-ng-submit="save()" novalidate="">
                 <div class="panel panel-grey">
                     <div class="panel-heading">
-                        <h3 class="panel-title"> Add Category</h3>
+                        <h3 class="panel-title"> {{panelTitle}} Category</h3>
                     </div>
                     <div class="panel-body">
                         <div class="form-group" ng-class="{ 'has-error': categoryForm.categoryName.$touched && categoryForm.categoryName.$invalid }">

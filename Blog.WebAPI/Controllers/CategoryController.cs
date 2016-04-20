@@ -101,6 +101,34 @@ namespace Blog.WebAPI.Controllers
             return CreatedAtRoute("DefaultApi", new { id = category.category_id }, category);
         }
 
+        // PUT: api/Categories/5
+        public IHttpActionResult PutCategory(int id, Category category)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (id != category.category_id)
+                return BadRequest();
+
+            var detailCategory = _categoryService.GetCategoryById(id);
+            detailCategory.category_id = category.category_id;
+            detailCategory.category_name = category.category_name;
+            detailCategory.category_slug = category.category_slug;
+
+            if (detailCategory.category_id == category.category_parent)
+                detailCategory.category_parent = detailCategory.category_parent;
+            else
+                detailCategory.category_parent = category.category_parent;
+
+            detailCategory.category_description = category.category_description;
+            detailCategory.category_active = category.category_active;
+
+            if (category != null)
+                _categoryService.UpdateCategory(detailCategory);
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
         #endregion
     }
 }

@@ -18,6 +18,10 @@
         factory.createCategory = function (category) {
             return $http.post(baseUrl, category);
         };
+        // UPDATE single category
+        factory.updateCategory = function (category) {
+            return $http.put(baseUrl + category.category_id, category);
+        }
         return factory;
 
     });

@@ -15,6 +15,5 @@ namespace Blog.WebAPI.Models
         public int category_parent { get; set; }
         public bool category_active { get; set; }
         public List<Category> categories { get; set; }
-        public string breadcrumb { get; set; }
     }
 }
