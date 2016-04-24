@@ -12,6 +12,7 @@
                 categoryService.getCategories()
                     .success(function (response) {
                         $scope.categories = response;
+                        $scope.totalItems = $scope.categories.length;
                     })
                     .error(function (error) {
                         console.log(error.message);
@@ -27,9 +28,16 @@
                 $scope.predicate = predicate;
             };
 
+            // paging categories
+            $scope.categories = [];
+            $scope.currentPage = 1;
+            $scope.entryLimit = 5;
+
             // search on table
             $scope.$watch("search", function (newVal) {
                 $scope.filtered = filter($scope.categories, newVal);
+                $scope.totalItems = $scope.filtered.length;
+                $scope.currentPage = 1;
             }, true);
 
             // GET parent categories

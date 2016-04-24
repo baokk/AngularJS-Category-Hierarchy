@@ -75,10 +75,10 @@
                                     {{category.category_name}}
                                 </option>
                                 <option ng-repeat-end
-                                        ng-repeat="children in category.categories"
-                                        value="{{children.category_id}}"
-                                        ng-selected="category_parent == children.category_id">
-                                    {{children.category_name}}
+                                        ng-repeat="category in category.categories"
+                                        value="{{category.category_id}}"
+                                        ng-selected="category_parent == category.category_id">
+                                    {{category.category_name}}
                                 </option>
                             </select>
                         </div>
@@ -118,14 +118,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr data-ng-repeat-start="parent in filtered = categories | orderBy:predicate:reverse | filter:search.category_name">
-                            <td>{{parent.category_name}}</td>
-                            <td>{{parent.category_slug}}</td>
+                        <tr data-ng-repeat-start="category in filtered = categories | orderBy:predicate:reverse | filter:search.category_name | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
+                            <td>{{category.category_name}}</td>
+                            <td>{{category.category_slug}}</td>
                             <td style="text-align: center">
-                                <input type="checkbox" disabled="disabled" ng-model="parent.category_active"/>
+                                <input type="checkbox" disabled="disabled" ng-model="category.category_active"/>
                             </td>
                             <td>
-                                <button class="btn btn-warning btn-xs" uib-tooltip="Edit" data-ng-click="getParentCategory(parent)">
+                                <button class="btn btn-warning btn-xs" uib-tooltip="Edit" data-ng-click="getParentCategory(category)">
                                     <i class="icon-pencil"></i>
                                 </button>
                                 <button class="btn btn-danger btn-xs" uib-tooltip="Delete" data-ng-click="removeCategory(category)">
@@ -134,7 +134,7 @@
                             </td>
                         </tr>
                         <tr data-ng-repeat-end
-                            data-ng-repeat="category in filtered = parent.categories | filter:search.category_name">
+                            data-ng-repeat="category in filtered = category.categories | filter:search.category_name | filter:search.category_name">
                             <td>{{category.category_name}}</td>
                             <td>{{category.category_slug}}</td>
                             <td style="text-align: center">
@@ -151,6 +151,9 @@
                         </tr>
                         </tbody>
                     </table>
+                    <div class="text-right">
+                        <div uib-pagination data-ng-model="currentPage" max-size="5" total-items="totalItems" items-per-page="entryLimit"></div>
+                    </div>
                 </div>
             </div>
         </div>

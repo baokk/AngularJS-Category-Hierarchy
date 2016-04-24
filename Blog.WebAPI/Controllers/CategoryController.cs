@@ -56,7 +56,7 @@ namespace Blog.WebAPI.Controllers
         {
             var categoryParents = _categoryService.GetAll()
                 .Where(c => c.category_parent == categoryId).ToList();
-           
+
             var listCategory = new List<Category>();
 
             foreach (var child in categoryParents)
@@ -116,10 +116,17 @@ namespace Blog.WebAPI.Controllers
             detailCategory.category_name = category.category_name;
             detailCategory.category_slug = category.category_slug;
 
-            if (detailCategory.category_id == category.category_parent)
-                detailCategory.category_parent = detailCategory.category_parent;
-            else
-                detailCategory.category_parent = category.category_parent;
+            //var checkParentofCate = _categoryService.GetCategoryById(category.category_parent);
+            //if (detailCategory.category_parent == 0)
+            //    detailCategory.category_parent = 0;
+
+            //else if (checkParentofCate.category_parent == detailCategory.category_id)
+            //{
+            //    detailCategory.category_parent = 0;
+            //}
+
+            //else
+            detailCategory.category_parent = category.category_parent;
 
             detailCategory.category_description = category.category_description;
             detailCategory.category_active = category.category_active;
