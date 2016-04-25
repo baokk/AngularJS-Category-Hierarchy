@@ -116,17 +116,16 @@ namespace Blog.WebAPI.Controllers
             detailCategory.category_name = category.category_name;
             detailCategory.category_slug = category.category_slug;
 
-            //var checkParentofCate = _categoryService.GetCategoryById(category.category_parent);
-            //if (detailCategory.category_parent == 0)
-            //    detailCategory.category_parent = 0;
+            var parentSelected = _categoryService.GetCategoryById(category.category_parent);
 
-            //else if (checkParentofCate.category_parent == detailCategory.category_id)
-            //{
-            //    detailCategory.category_parent = 0;
-            //}
-
-            //else
-            detailCategory.category_parent = category.category_parent;
+            if (parentSelected.category_parent != detailCategory.category_id)
+            {
+                detailCategory.category_parent = category.category_parent;
+            }
+            else
+            {
+                detailCategory.category_parent = 0;
+            }
 
             detailCategory.category_description = category.category_description;
             detailCategory.category_active = category.category_active;
