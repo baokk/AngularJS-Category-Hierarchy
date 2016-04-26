@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Web.Http;
@@ -117,16 +118,20 @@ namespace Blog.WebAPI.Controllers
             detailCategory.category_slug = category.category_slug;
 
             var parentSelected = _categoryService.GetCategoryById(category.category_parent);
+            while (parentSelected != null)
+            {
+                if (detailCategory.category_id == parentSelected.category_id)
+                {
+                    detailCategory.category_parent = 0;
+                    break;
+                }
+                parentSelected = _categoryService.GetCategoryById(parentSelected.category_parent);
 
-            if (parentSelected.category_parent != detailCategory.category_id)
+            }
+            if (parentSelected == null)
             {
                 detailCategory.category_parent = category.category_parent;
             }
-            else
-            {
-                detailCategory.category_parent = 0;
-            }
-
             detailCategory.category_description = category.category_description;
             detailCategory.category_active = category.category_active;
 
