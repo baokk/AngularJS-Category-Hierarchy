@@ -31,7 +31,7 @@
             // paging categories
             $scope.categories = [];
             $scope.currentPage = 1;
-            $scope.entryLimit = 5;
+            $scope.entryLimit = 3;
 
             // search on table
             $scope.$watch("search", function (newVal) {
@@ -79,7 +79,6 @@
                 if ($scope.EditMode == false) {
                     var addCategory = categoryService.createCategory($scope.category);
                     addCategory.then(function () {
-                        $scope.EditMode = false;
                         getAllHierarchyCategories();
                         $scope.resetForm();
                     }, function (error) {
@@ -88,7 +87,6 @@
                 } else {
                     var updateCategory = categoryService.updateCategory($scope.category);
                     updateCategory.then(function (data) {
-                        $scope.EditMode = true;
                         getAllHierarchyCategories();
                         $scope.resetForm();
                     }, function (error) {
@@ -98,52 +96,45 @@
                 saveSuccess();
             }
 
+            // Delete category
             $scope.removeCategory = function (category) {
-
                 var promiseGetSingle = categoryService.getCategory(category.category_id);
+                promiseGetSingle.then(function (data) {
+                    var detail = data.data;
+                    var modalOptions = {
+                        closeButtonText: 'Cancel',
+                        actionButtonText: 'Delete Category',
+                        headerText: 'Delete Category',
+                        bodyText: 'Are you sure you want to delete category is ' +  detail.category_name + ' ?'
+                    };
 
-                promiseGetSingle.then(function (pl) {
-                    var res = pl.data;
-                    var categoryName = res.category_name;
+                    modalService.showModal({}, modalOptions).then(function (result) {
+                        var deleteCategory = categoryService.deleteCategory(category.category_id);
+                        deleteCategory.then(function () {
+                            getAllHierarchyCategories();
+                            deleteSuccess();
+                        });
+                    });
 
                 }, function (error) {
                     console.log("message error: " + error);
                 });
-
-                //var modalOptions = {
-                //    closeButtonText: 'Cancel',
-                //    actionButtonText: 'Delete Category',
-                //    headerText: 'Delete Category',
-                //    bodyText: 'Are you sure you want to delete category ' + categoryName + ' ?'
-                //};
-
-                //modalService.showModal({}, modalOptions).then(function (result) {
-                //    var deleteCategory = categoryService.deleteCategory(category.category_id);
-                //    deleteCategory.then(function () {
-                //        getAllHierarchyCategories();
-                //        deleteSuccess();
-                //    });
-                //});
             };
 
             // RESET form after insert
             $scope.resetForm = function clear() {
-
-                $scope.category.category_name = "";
-                $scope.category.category_slug = "";
-                $scope.category.category_description = "";
-                $scope.category.category_active = false;
-                $scope.EditMode = false;
-
-                //reset category dropdown after submits
+                // reset all controls
+                $scope.category = null;
+                // reset default index of category combobox after submit
                 if (angular.isDefined($scope.category_parent)) {
                     delete $scope.category_parent;
                 }
-
                 // clear validation after submit
                 $scope.categoryForm.$setPristine();
                 $scope.categoryForm.$setUntouched();
-
+                // reset EditMode is false
+                $scope.EditMode = false;
+                // change panel title is add
                 $scope.panelTitle = "Add";
             }
 
