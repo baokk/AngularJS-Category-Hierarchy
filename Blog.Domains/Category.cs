@@ -1,4 +1,7 @@
 ﻿
+using System.Collections.Generic;
+using System.Collections.Specialized;
+
 namespace Blog.Domains
 {
     public class Category
