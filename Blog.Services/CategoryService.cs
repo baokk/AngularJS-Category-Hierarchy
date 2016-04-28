@@ -28,6 +28,23 @@ namespace Blog.Services
 
         public void UpdateCategory(Category category)
         {
+            var categorySelected = GetCategoryById(category.category_parent);
+
+            while (categorySelected != null)
+            {
+                if (category.category_id == categorySelected.category_id)
+                {
+                    category.category_parent = 0;
+                    break;
+                }
+                categorySelected = GetCategoryById(categorySelected.category_parent);
+
+            }
+            if (categorySelected == null)
+            {
+                category.category_parent = category.category_parent;
+            }
+
             _unitOfWork.CategoryRepository.Update(category);
             _unitOfWork.Commit();
         }
@@ -46,10 +63,10 @@ namespace Blog.Services
         {
             var childrenCategory = _unitOfWork.CategoryRepository.Find(c => c.category_parent == category.category_id);
             
-            foreach (var childCate in childrenCategory)
+            foreach (var child in childrenCategory)
             {
-                childCate.category_parent = 0;
-                _unitOfWork.CategoryRepository.Update(childCate);
+                child.category_parent = 0;
+                _unitOfWork.CategoryRepository.Update(child);
             }
 
             _unitOfWork.CategoryRepository.Delete(category);
