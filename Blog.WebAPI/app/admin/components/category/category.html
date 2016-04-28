@@ -164,5 +164,10 @@
         <strong class="alert-heading">Success</strong>
         <span class="alert-message" ng-bind="flash.message"></span>
     </div>
+    <div flash-alert="error" active-class="in alert-flash" class="fade ">
+        <button type="button" class="close" ng-click="hide()">&times;</button>
+        <strong class="alert-heading">Error</strong>
+        <span class="alert-message" ng-bind="flash.message"></span>
+    </div>
     <!-- End flash message template-->
 </div>

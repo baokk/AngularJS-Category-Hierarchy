@@ -104,39 +104,24 @@ namespace Blog.WebAPI.Controllers
 
         // PUT: api/Categories/5
         [ResponseType((typeof(void)))]
-        public IHttpActionResult PutCategory(int id, Category category)
+        public IHttpActionResult PutCategory(int id, Category categoryModel)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            if (id != category.category_id)
+            if (id != categoryModel.category_id)
                 return BadRequest();
 
-            var detailCategory = _categoryService.GetCategoryById(id);
-            detailCategory.category_id = category.category_id;
-            detailCategory.category_name = category.category_name;
-            detailCategory.category_slug = category.category_slug;
+            var category = _categoryService.GetCategoryById(id);
+            category.category_id = categoryModel.category_id;
+            category.category_name = categoryModel.category_name;
+            category.category_slug = categoryModel.category_slug;
+            category.category_description = categoryModel.category_description;
+            category.category_parent = categoryModel.category_parent;
+            category.category_active = categoryModel.category_active;
 
-            var parentSelected = _categoryService.GetCategoryById(category.category_parent);
-            while (parentSelected != null)
-            {
-                if (detailCategory.category_id == parentSelected.category_id)
-                {
-                    detailCategory.category_parent = 0;
-                    break;
-                }
-                parentSelected = _categoryService.GetCategoryById(parentSelected.category_parent);
-
-            }
-            if (parentSelected == null)
-            {
-                detailCategory.category_parent = category.category_parent;
-            }
-            detailCategory.category_description = category.category_description;
-            detailCategory.category_active = category.category_active;
-
-            if (category != null)
-                _categoryService.UpdateCategory(detailCategory);
+            if (categoryModel != null)
+                _categoryService.UpdateCategory(category);
 
             return StatusCode(HttpStatusCode.NoContent);
         }

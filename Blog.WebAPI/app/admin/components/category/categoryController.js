@@ -31,7 +31,7 @@
             // paging categories
             $scope.categories = [];
             $scope.currentPage = 1;
-            $scope.entryLimit = 3;
+            $scope.entryLimit = 5;
 
             // search on table
             $scope.$watch("search", function (newVal) {
@@ -63,7 +63,6 @@
                     var res = pl.data;
                     $scope.category = res;
                     $scope.category_parent = res.category_parent;
-
                 }, function (error) {
                     console.log("message error: " + error);
                 });
@@ -81,19 +80,20 @@
                     addCategory.then(function () {
                         getAllHierarchyCategories();
                         $scope.resetForm();
-                    }, function (error) {
-                        console.log('message error: ' + error);
+                        saveSuccess();
+                    }, function () {
+                        errorMessage();
                     });
                 } else {
                     var updateCategory = categoryService.updateCategory($scope.category);
                     updateCategory.then(function (data) {
                         getAllHierarchyCategories();
                         $scope.resetForm();
-                    }, function (error) {
-                        console.log('message error: ' + error);
+                        saveSuccess();
+                    }, function () {
+                        errorMessage();
                     });
                 }
-                saveSuccess();
             }
 
             // Delete category
@@ -116,8 +116,8 @@
                         });
                     });
 
-                }, function (error) {
-                    console.log("message error: " + error);
+                }, function () {
+                    errorMessage();
                 });
             };
 
@@ -145,6 +145,10 @@
 
             var deleteSuccess = function () {
                 flash.success = 'Deleted Successfully !';
+            }
+
+            var errorMessage = function () {
+                flash.error = 'Save failed !';
             }
 
         }]);
