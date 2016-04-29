@@ -54,6 +54,7 @@
                     console.log("message error: " + error);
                 });
             };
+
             // GET children categories
             $scope.getChildrenCategory = function (category) {
                 $scope.panelTitle = "Edit";
