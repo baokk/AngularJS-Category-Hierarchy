@@ -219,7 +219,6 @@
     <Content Include="app\services\modalService.js" />
     <Content Include="app\shared\directives\knConfirmPassword.js" />
     <Content Include="app\shared\directives\knFileUpload.js" />
-    <Content Include="app\shared\directives\knFlashMessage.js" />
     <Content Include="app\shared\directives\knUnique.js" />
     <Content Include="app\shared\partials\modal.html" />
     <Content Include="app\shared\partials\pager-template.html" />
